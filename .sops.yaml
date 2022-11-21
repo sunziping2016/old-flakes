@@ -1,0 +1,6 @@
+keys:
+  - &admin_sun C08B00ED08DC909675AF645D92E2BF32F1C99590
+  - &server_local age1fsec8hq5hnrz3u0a579h7yyryvagy2raf3wha6z5fg03w4h7wvksc08ger
+creation_rules:
+  - pgp: *admin_sun
+    age: *server_local

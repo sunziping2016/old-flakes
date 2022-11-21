@@ -1,0 +1,62 @@
+{
+    "clash-dashboard": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-dashboard",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "bc9a00b134f4e1b648788ca6518389f822f80017",
+            "sha256": "sha256-aw0m3udnx7jphKF+7kL2lzrUdOrR5hHMbBFRR2jLXNU=",
+            "type": "git",
+            "url": "https://github.com/Dreamacro/clash-dashboard.git"
+        },
+        "version": "bc9a00b134f4e1b648788ca6518389f822f80017"
+    },
+    "clash-premium-x86_64-linux": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-premium-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-F3Gn2b5zhgd+galkJIt5Hw2fDs9SGKPE7vxi+GRR3h0=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.08.26.gz"
+        },
+        "version": "2022.08.26"
+    },
+    "maxmind-geoip": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "maxmind-geoip",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb"
+        },
+        "version": "20221112"
+    },
+    "yacd": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "yacd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1dfs3pGnCKeThhFnU+MqWfMsjLjuyA3tVsOrlOURulA=",
+            "type": "url",
+            "url": "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz"
+        },
+        "version": "v0.3.8"
+    }
+}
