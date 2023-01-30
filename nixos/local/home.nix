@@ -69,6 +69,13 @@
     microsoft-edge
     handlr
     htop
+    fd
+    ripgrep
+    jq
+    unzip
+    nixpkgs-fmt
+    sops
+    kmonad-bin
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
@@ -79,13 +86,34 @@
     systemd.target = "hyprland-session.target";
     package = pkgs.waybar-hyprland;
   };
+  programs.mako = {
+    enable = true;
+    defaultTimeout = 5000;
+  };
   programs.vscode = {
     enable = true;
+    # userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
       yzhang.markdown-all-in-one
       vscodevim.vim
+      ms-vscode.cpptools
+      ms-vscode.cmake-tools
+      xaver.clang-format
+      ms-python.vscode-pylance
+      ms-toolsai.jupyter
+      mechatroner.rainbow-csv
+      ms-python.python
     ];
+    # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    #   {
+    #     name = "xaver.clang-format";
+    #     publisher = "xaver";
+    #     version = "1.9.0";
+    #     sha256 = "166ia73vrcl5c9hm4q1a73qdn56m0jc7flfsk5p5q41na9f10lb0";
+    #   }
+    # ];
+    # mutableExtensionsDir = false;
   };
   programs.gpg = {
     enable = true;
@@ -100,6 +128,7 @@
   };
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userEmail = "me@szp.io";
     userName = "Ziping Sun";
     extraConfig = {
@@ -114,7 +143,6 @@
   xdg = {
     enable = true;
     userDirs.enable = true;
-    configFile = { };
   };
   systemd.user.targets.hyprland-session = {
     Unit = {
@@ -128,12 +156,6 @@
       After = [ "graphical-session-pre.target" ];
     };
   };
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-chinese-addons
-    ];
-  };
-  systemd.user.services.fcitx5-daemon.Service.ExecStart = lib.mkForce "${pkgs.coreutils-full}/bin/true";
-  home.stateVersion = "22.05";
+  # systemd.user.services.fcitx5-daemon.Service.ExecStart = lib.mkForce "${pkgs.coreutils-full}/bin/true";
+  home.stateVersion = "22.11";
 }

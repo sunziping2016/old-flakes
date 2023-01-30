@@ -13,8 +13,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out
-    cp -r . $out
+    mkdir -p $out/share/yacd
+    cp -r . $out/share/yacd
   '';
 
   meta = with lib; {

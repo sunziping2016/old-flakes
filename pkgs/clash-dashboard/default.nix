@@ -9,8 +9,8 @@ stdenvNoCC.mkDerivation rec {
   src = source.src;
 
   installPhase = ''
-    mkdir -p $out
-    cp -r . $out
+    mkdir -p $out/share/clash-dashboard
+    cp -r . $out/share/clash-dashboard
   '';
 
   meta = with lib; {

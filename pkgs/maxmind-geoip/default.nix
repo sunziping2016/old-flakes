@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   phases = [ "installPhase" ];
   installPhase = ''
-    install -D -m755 $src $out/Country.mmdb
+    install -D -m644 $src $out/share/Country.mmdb
   '';
 
   meta = with lib; {

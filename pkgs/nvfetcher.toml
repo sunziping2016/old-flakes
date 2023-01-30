@@ -15,3 +15,8 @@ fetch.url = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz
 src.git = "https://github.com/Dreamacro/clash-dashboard.git"
 src.branch = "gh-pages"
 fetch.git = "https://github.com/Dreamacro/clash-dashboard.git"
+
+[kmonad-bin]
+src.webpage = "https://api.github.com/repos/kmonad/kmonad/releases"
+src.regex = "kmonad-([-.a-z0-9]+)-linux"
+fetch.url = "https://github.com/kmonad/kmonad/releases/download/$ver/kmonad-$ver-linux"

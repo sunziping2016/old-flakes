@@ -1,6 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
+        "date": "2023-01-20",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -10,43 +11,61 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bc9a00b134f4e1b648788ca6518389f822f80017",
-            "sha256": "sha256-aw0m3udnx7jphKF+7kL2lzrUdOrR5hHMbBFRR2jLXNU=",
+            "rev": "bf46fbd936eac84a6939360d5555e7bd1146bbbe",
+            "sha256": "sha256-lJQXOPlMhHBWLMWtkyaEpMc+FaPvu/++I+CF2A6vSXA=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "bc9a00b134f4e1b648788ca6518389f822f80017"
+        "version": "bf46fbd936eac84a6939360d5555e7bd1146bbbe"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-premium-x86_64-linux",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-F3Gn2b5zhgd+galkJIt5Hw2fDs9SGKPE7vxi+GRR3h0=",
+            "sha256": "sha256-1s4K+rjlwWqXrCE2L8QveFL8CTgvGMYzniuZMgY1+eE=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.08.26.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.11.25.gz"
         },
-        "version": "2022.08.26"
+        "version": "2022.11.25"
+    },
+    "kmonad-bin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kmonad-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-g55Y58wj1t0GhG80PAyb4PknaYGJ5JfaNe9RlnA/eo8=",
+            "type": "url",
+            "url": "https://github.com/kmonad/kmonad/releases/download/0.4.1/kmonad-0.4.1-linux"
+        },
+        "version": "0.4.1"
     },
     "maxmind-geoip": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "maxmind-geoip",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=",
+            "sha256": "sha256-mMu+U3gtoZmi6LrTMTqsNZKZ+w4J6LZ16Aorneyy7P8=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230112/Country.mmdb"
         },
-        "version": "20221112"
+        "version": "20230112"
     },
     "yacd": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "yacd",
         "passthru": null,

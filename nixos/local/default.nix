@@ -6,19 +6,17 @@ nixpkgs.lib.nixosSystem {
     ./hardware.nix
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
-    inputs.kmonad.nixosModules.default
+    # inputs.kmonad.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     {
       nix = {
         settings = {
           substituters = [
             "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-            "https://cache.nixos.org"
             "https://hyprland.cachix.org"
             "https://nixpkgs-wayland.cachix.org"
           ];
           trusted-public-keys = [
-            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
             "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
           ];

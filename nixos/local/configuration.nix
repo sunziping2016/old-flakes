@@ -6,6 +6,10 @@ let
     export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
     exec Hyprland
   '';
+  clash-resolv = pkgs.writeText "clash-resolv" ''
+    nameserver 127.0.0.1
+    search .
+  '';
 in
 {
   home-manager = {
@@ -14,9 +18,9 @@ in
     users.sun = import ./home.nix;
     users.clash = {
       home.file = {
-        "Country.mmdb".source = "${pkgs.maxmind-geoip}/Country.mmdb";
+        "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
       };
-      home.stateVersion = "22.05";
+      home.stateVersion = "22.11";
     };
     sharedModules = [
       inputs.hyprland.homeManagerModules.default
@@ -48,11 +52,13 @@ in
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    # {{{
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with config.boot.kernelPackages; [
       (callPackage "${inputs.dhack}/dhack.nix" { })
     ];
     kernelModules = [ "dhack" ];
+    # }}}
   };
 
   time.timeZone = "Asia/Shanghai";
@@ -62,19 +68,22 @@ in
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
-    wireless.iwd.enable = true;
+    wireless.iwd = {
+      enable = true;
+      package = pkgs.iwd-thu;
+    };
   };
 
   systemd.network.networks = {
-    wlp3s0 = {
-      name = "wlan0";
+    "25-wireless" = {
+      name = "wlan*";
       DHCP = "yes";
     };
   };
 
   services = {
-    dbus.enable = true;
-    resolved.enable = false;
+    tlp.enable = true;
+    resolved.enable = true;
     greetd = {
       enable = true;
       settings = {
@@ -82,25 +91,25 @@ in
       };
     };
     printing.enable = true;
-    kmonad = {
-      enable = true;
-      keyboards.internal = {
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
-        };
-        config = builtins.readFile ./keyboards/internal.kbd;
-      };
-      keyboards.rapoo = {
-        device = "/dev/input/by-path/pci-0000:06:00.3-usb-0:3:1.0-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
-        };
-        config = builtins.readFile ./keyboards/internal.kbd;
-      };
-    };
+    # kmonad = {
+    #   enable = true;
+    #   keyboards.internal = {
+    #     device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+    #     defcfg = {
+    #       enable = true;
+    #       fallthrough = true;
+    #     };
+    #     config = builtins.readFile ./kmonad/internal.kbd;
+    #   };
+    #   keyboards.rapoo = {
+    #     device = "/dev/input/by-path/pci-0000:06:00.3-usb-0:3:1.0-event-kbd";
+    #     defcfg = {
+    #       enable = true;
+    #       fallthrough = true;
+    #     };
+    #     config = builtins.readFile ./kmonad/internal.kbd;
+    #   };
+    # };
     blueman.enable = true;
     pipewire = {
       enable = true;
@@ -113,16 +122,34 @@ in
   };
   sound.enable = true;
 
-  environment.etc."resolv.conf" = pkgs.lib.mkForce { source = ./resolv.conf; };
+  systemd.services.clash-dashboard = {
+    description = "Clash dashboard";
+    script = "exec ${pkgs.sfz}/bin/sfz -r -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
+
   systemd.services.clash = {
+    enable = true;
     description = "Clash networking service";
     script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
-    after = [ "network.target" ];
+    after = [ "network.target" "systemd-resolved.service" ];
+    conflicts = [ "systemd-resolved.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
       User = "clash";
       Restart = "on-failure";
+      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv} /etc/resolv.conf";
+      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
+    };
+  };
+
+  systemd.services.systemd-resolved = {
+    wantedBy = pkgs.lib.mkForce [];
+    serviceConfig = {
+      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf";
+      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
     };
   };
 
@@ -155,15 +182,25 @@ in
     ];
     users.sun = {
       directories = [
+        ".cache/Microsoft"
+        ".config/1Password"
+        ".config/fcitx5"
+        ".config/hypr"
+        ".config/microsoft-edge"
+        ".config/waybar"
+        ".local/share/direnv"
+        ".local/share/TelegramDesktop"
         "Documents"
         "Downloads"
         "Music"
         "Pictures"
         "Videos"
         "Projects"
-        ".config"
         { directory = ".gnupg"; mode = "0700"; }
         { directory = ".ssh"; mode = "0700"; }
+      ];
+      files = [
+        ".local/share/fish/fish_history"
       ];
     };
     users.clash = {
@@ -215,6 +252,10 @@ in
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
   };
 
   fonts.enableDefaultFonts = false;
@@ -233,7 +274,15 @@ in
     emoji = [ "Noto Color Emoji" ];
   };
 
-  i18n.defaultLocale = "C.UTF-8";
+  i18n = {
+    defaultLocale = "C.UTF-8";
+    inputMethod = {
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        fcitx5-chinese-addons
+      ];
+    };
+  };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 }

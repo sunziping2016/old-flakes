@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    # kmonad = {
+    #   url = "github:kmonad/kmonad?submodules=1&dir=nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
     hyprland = {
@@ -51,9 +51,13 @@
         {
           packages = this.packages pkgs;
           legacyPackages = pkgs;
-          devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ nvfetcher sops nixpkgs-fmt ];
-          };
+          devShells.default =
+            let
+              vscode-ext-fetcher = pkgs.writeShellScriptBin "vscode-ext-fetcher" (builtins.readFile "${inputs.nixpkgs}/pkgs/applications/editors/vscode/extensions/update_installed_exts.sh");
+            in
+            with pkgs; mkShell {
+              nativeBuildInputs = [ nvfetcher vscode-ext-fetcher ];
+            };
         }
       ) // {
       overlays.default = this.overlay;
