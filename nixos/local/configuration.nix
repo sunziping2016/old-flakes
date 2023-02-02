@@ -59,6 +59,9 @@ in
     ];
     kernelModules = [ "dhack" ];
     # }}}
+    extraModprobeConfig = ''
+      options hid_apple fnmode=2
+    '';
   };
 
   time.timeZone = "Asia/Shanghai";
