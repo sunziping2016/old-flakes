@@ -1,10 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    # kmonad = {
-    #   url = "github:kmonad/kmonad?submodules=1&dir=nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    kmonad = {
+      url = "github:kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
     hyprland = {

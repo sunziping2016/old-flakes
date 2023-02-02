@@ -94,25 +94,25 @@ in
       };
     };
     printing.enable = true;
-    # kmonad = {
-    #   enable = true;
-    #   keyboards.internal = {
-    #     device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-    #     defcfg = {
-    #       enable = true;
-    #       fallthrough = true;
-    #     };
-    #     config = builtins.readFile ./kmonad/internal.kbd;
-    #   };
-    #   keyboards.rapoo = {
-    #     device = "/dev/input/by-path/pci-0000:06:00.3-usb-0:3:1.0-event-kbd";
-    #     defcfg = {
-    #       enable = true;
-    #       fallthrough = true;
-    #     };
-    #     config = builtins.readFile ./kmonad/internal.kbd;
-    #   };
-    # };
+    kmonad = {
+      enable = true;
+      keyboards.internal = {
+        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+        defcfg = {
+          enable = true;
+          fallthrough = true;
+        };
+        config = builtins.readFile ./kmonad/internal.kbd;
+      };
+      keyboards.rapoo = {
+        device = "/dev/input/by-path/pci-0000:06:00.3-usb-0:3:1.0-event-kbd";
+        defcfg = {
+          enable = true;
+          fallthrough = true;
+        };
+        config = builtins.readFile ./kmonad/internal.kbd;
+      };
+    };
     blueman.enable = true;
     pipewire = {
       enable = true;

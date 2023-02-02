@@ -6,7 +6,7 @@ nixpkgs.lib.nixosSystem {
     ./hardware.nix
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
-    # inputs.kmonad.nixosModules.default
+    inputs.kmonad.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     {
       nix = {

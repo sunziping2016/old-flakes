@@ -75,7 +75,6 @@
     unzip
     nixpkgs-fmt
     sops
-    kmonad-bin
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
