@@ -34,7 +34,7 @@ in
     secrets = {
       sun-password.neededForUsers = true;
       "clash.yaml" = {
-        sopsFile = ./secrets/clash.yaml;
+        sopsFile = ./secrets/clash.yaml.json;
         format = "binary";
         owner = "clash";
       };
@@ -149,7 +149,7 @@ in
   };
 
   systemd.services.systemd-resolved = {
-    wantedBy = pkgs.lib.mkForce [];
+    wantedBy = pkgs.lib.mkForce [ ];
     serviceConfig = {
       ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf";
       ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";

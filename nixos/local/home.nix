@@ -91,22 +91,26 @@
   };
   programs.vscode = {
     enable = true;
-    # userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
-    extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
-      yzhang.markdown-all-in-one
-      vscodevim.vim
-      ms-vscode.cpptools
-      ms-vscode.cmake-tools
-      xaver.clang-format
-      ms-python.vscode-pylance
-      ms-toolsai.jupyter
-      mechatroner.rainbow-csv
-      ms-python.python
-    ];
+    userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
+    extensions = (with pkgs.vscode-extensions;
+      [
+        jnoortheen.nix-ide
+        yzhang.markdown-all-in-one
+        vscodevim.vim
+        ms-vscode.cpptools
+        ms-vscode.cmake-tools
+        xaver.clang-format
+        ms-python.vscode-pylance
+        ms-toolsai.jupyter
+        mechatroner.rainbow-csv
+        ms-python.python
+      ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+      mkhl.direnv
+      meezilla.json
+    ]);
     # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     #   {
-    #     name = "xaver.clang-format";
+    #     name = "mscode-cpptools";
     #     publisher = "xaver";
     #     version = "1.9.0";
     #     sha256 = "166ia73vrcl5c9hm4q1a73qdn56m0jc7flfsk5p5q41na9f10lb0";

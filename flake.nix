@@ -5,6 +5,9 @@
       url = "github:kmonad/kmonad?submodules=1&dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+    };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
     hyprland = {
