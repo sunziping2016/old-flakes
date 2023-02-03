@@ -146,6 +146,9 @@
   xdg = {
     enable = true;
     userDirs.enable = true;
+    configFile = {
+      "direnv/direnvrc".source = ./direnvrc;
+    };
   };
   systemd.user.targets.hyprland-session = {
     Unit = {
