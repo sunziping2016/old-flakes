@@ -4,11 +4,28 @@
     },
     "clangd.detectExtensionConflicts": false,
     "cmake.configureOnOpen": true,
+    "cmake.debugConfig": {
+        "sourceFileMap": {
+            "${workspaceRoot}": {
+                "editorPath": "${workspaceRoot}",
+                "useForBreakpoints": true
+            }
+        }
+    },
+    "doxdocgen.generic.authorEmail": "me@szp.io",
+    "doxdocgen.generic.authorName": "Ziping Sun",
+    "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
+    "editor.foldingStrategy": "auto",
     "editor.fontFamily": "'JetBrainsMono Nerd Font Mono',Consolas, 'Courier New', monospace",
     "editor.formatOnSave": true,
+    "editor.formatOnType": true,
     "editor.smoothScrolling": true,
+    "editor.stickyScroll.enabled": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
+    "jupyter.askForKernelRestart": false,
+    "markdown-preview-enhanced.previewTheme": "atom-dark.css",
+    "notebook.lineNumbers": "on",
     "security.workspace.trust.banner": "never",
     "sops.beta": true,
     "update.enableWindowsBackgroundUpdates": false,
@@ -32,5 +49,6 @@
     "vim.sneakReplacesF": true,
     "vim.targets.enable": true,
     "vim.useSystemClipboard": true,
-    "workbench.colorTheme": "Default Dark+"
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.list.openMode": "doubleClick"
 }

@@ -91,6 +91,8 @@
   };
   programs.vscode = {
     enable = true;
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
     userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     extensions = (with pkgs.vscode-extensions;
       [
@@ -102,20 +104,17 @@
         xaver.clang-format
         ms-python.vscode-pylance
         ms-toolsai.jupyter
+        ms-toolsai.jupyter-keymap
         mechatroner.rainbow-csv
         ms-python.python
+        eamodio.gitlens
       ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
       mkhl.direnv
       meezilla.json
+      zokugun.explicit-folding
+      richie5um2.vscode-sort-json
+      cschlosser.doxdocgen
     ]);
-    # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    #   {
-    #     name = "mscode-cpptools";
-    #     publisher = "xaver";
-    #     version = "1.9.0";
-    #     sha256 = "166ia73vrcl5c9hm4q1a73qdn56m0jc7flfsk5p5q41na9f10lb0";
-    #   }
-    # ];
     # mutableExtensionsDir = false;
   };
   programs.gpg = {
