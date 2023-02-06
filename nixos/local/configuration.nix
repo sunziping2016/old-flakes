@@ -10,6 +10,7 @@ let
     nameserver 127.0.0.1
     search .
   '';
+  miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
 {
   home-manager = {
@@ -93,25 +94,25 @@ in
         default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd \"${wrapped-hl}/bin/wrapped-hl\" --time";
       };
     };
+    udev.extraRules = ''
+      KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
+    '';
     printing.enable = true;
     kmonad = {
       enable = true;
-      keyboards.internal = {
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
+      keyboards = pkgs.lib.mapAttrs
+        (_: value: {
+          device = value;
+          defcfg = {
+            enable = true;
+            fallthrough = true;
+          };
+          config = builtins.readFile ./kmonad/internal.kbd;
+        })
+        {
+          internal = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+          miiiw-art-z870 = "/dev/${miiiw-art-z870-path}";
         };
-        config = builtins.readFile ./kmonad/internal.kbd;
-      };
-      keyboards.rapoo = {
-        device = "/dev/input/by-path/pci-0000:06:00.3-usb-0:3:1.0-event-kbd";
-        defcfg = {
-          enable = true;
-          fallthrough = true;
-        };
-        config = builtins.readFile ./kmonad/internal.kbd;
-      };
     };
     blueman.enable = true;
     pipewire = {
@@ -193,6 +194,7 @@ in
         ".config/waybar"
         ".local/share/direnv"
         ".local/share/TelegramDesktop"
+        ".local/share/Zeal"
         "Documents"
         "Downloads"
         "Music"

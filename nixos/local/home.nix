@@ -75,6 +75,7 @@
     unzip
     nixpkgs-fmt
     sops
+    zeal
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
@@ -113,7 +114,6 @@
       meezilla.json
       zokugun.explicit-folding
       richie5um2.vscode-sort-json
-      cschlosser.doxdocgen
     ]);
     # mutableExtensionsDir = false;
   };

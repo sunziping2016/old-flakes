@@ -2,7 +2,6 @@
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
-    "clangd.detectExtensionConflicts": false,
     "cmake.configureOnOpen": true,
     "cmake.debugConfig": {
         "sourceFileMap": {
@@ -24,11 +23,8 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
-    "markdown-preview-enhanced.previewTheme": "atom-dark.css",
     "notebook.lineNumbers": "on",
     "security.workspace.trust.banner": "never",
-    "sops.beta": true,
-    "update.enableWindowsBackgroundUpdates": false,
     "vim.autoSwitchInputMethod.defaultIM": "1",
     "vim.autoSwitchInputMethod.enable": true,
     "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/env fcitx5-remote",
@@ -49,6 +45,5 @@
     "vim.sneakReplacesF": true,
     "vim.targets.enable": true,
     "vim.useSystemClipboard": true,
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.list.openMode": "doubleClick"
+    "workbench.colorTheme": "Default Dark+"
 }
