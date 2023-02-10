@@ -3,7 +3,11 @@
   systemd.user = {
     sessionVariables = {
       EDITOR = "nvim";
-      LIBVA_DRIVER_NAME = "nvidia";
+      # LIBVA_DRIVER_NAME = "nvidia";
+      # GBM_BACKEND = "nvidia-drm";
+      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      # WLR_DRM_DEVICES = "/dev/dri/card0"; # nvidia
+      WLR_NO_HARDWARE_CURSORS = "1";
       # recommended by Hyprland
       GDK_BACKEND = "wayland,x11";
       _JAVA_AWT_WM_NONREPARENTING = "1";
@@ -52,6 +56,7 @@
     {
       enable = true;
       systemdIntegration = false;
+      nvidiaPatches = true;
       extraConfig = ''
         exec-once = export WAYLAND_DISPLAY DISPLAY && ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP PATH && systemctl --user start hyprland-session.target
         exec-once = hyprctl setcursor ${cursorTheme.name} ${toString cursorTheme.size}
@@ -109,6 +114,7 @@
         mechatroner.rainbow-csv
         ms-python.python
         eamodio.gitlens
+        streetsidesoftware.code-spell-checker
       ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
       mkhl.direnv
       meezilla.json

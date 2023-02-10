@@ -122,7 +122,7 @@ in
       pulse.enable = true;
       jack.enable = true;
     };
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = [ "nvidia" "amd-gpu" ];
   };
   sound.enable = true;
 
@@ -226,6 +226,11 @@ in
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        # nvidia-vaapi-driver
+        # mesa
+        # nvidia
+      ];
     };
   };
   hardware.nvidia = {
