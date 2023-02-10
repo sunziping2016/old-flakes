@@ -136,6 +136,11 @@ in
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
+    restartTriggers = [
+      pkgs.clash-premium
+      pkgs.clash-dashboard
+      ./secrets/clash.yaml.json
+    ];
     script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
     after = [ "network.target" "systemd-resolved.service" ];
     conflicts = [ "systemd-resolved.service" ];
