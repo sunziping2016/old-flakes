@@ -249,9 +249,6 @@ in
   };
   hardware.bluetooth.enable = true;
 
-  programs.fish = {
-    enable = true;
-  };
   programs.neovim = {
     enable = true;
     viAlias = true;
