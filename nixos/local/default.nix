@@ -14,9 +14,9 @@ nixpkgs.lib.nixosSystem {
           trusted-users = [ "root" "sun" ];
           substituters = [
             "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+            "https://cache.nixos.org"
             "https://hyprland.cachix.org"
             "https://nixpkgs-wayland.cachix.org"
-            "https://cache.nixos.org"
           ];
           trusted-public-keys = [
             "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="

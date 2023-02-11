@@ -81,6 +81,8 @@
     nixpkgs-fmt
     sops
     zeal
+    cachix
+    devenv
     (rofi-wayland.override {
       symlink-dmenu = true;
     })

@@ -197,7 +197,10 @@ in
         ".config/hypr"
         ".config/microsoft-edge"
         ".config/waybar"
+        ".config/nix"
+        ".config/cachix"
         ".local/share/direnv"
+        ".local/share/fish"
         ".local/share/TelegramDesktop"
         ".local/share/Zeal"
         "Documents"
@@ -208,9 +211,6 @@ in
         "Projects"
         { directory = ".gnupg"; mode = "0700"; }
         { directory = ".ssh"; mode = "0700"; }
-      ];
-      files = [
-        ".local/share/fish/fish_history"
       ];
     };
     users.clash = {
