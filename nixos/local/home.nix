@@ -113,20 +113,24 @@
     userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     extensions = (with pkgs.vscode-extensions;
       [
-        jnoortheen.nix-ide
-        yzhang.markdown-all-in-one
-        vscodevim.vim
-        ms-vscode.cpptools
-        ms-vscode.cmake-tools
-        xaver.clang-format
-        ms-python.vscode-pylance
-        ms-toolsai.jupyter
-        ms-toolsai.jupyter-keymap
-        mechatroner.rainbow-csv
-        ms-python.python
-        eamodio.gitlens
-        streetsidesoftware.code-spell-checker
       ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+      jnoortheen.nix-ide
+      yzhang.markdown-all-in-one
+      vscodevim.vim
+      ms-vscode.cmake-tools
+      (ms-vscode.cpptools.overrideAttrs (old: {
+        src = old.src.overrideAttrs (_: {
+          outputHash = "sha256-GRglL8Ny5eVHlLaJgFID++QXSGDRKDsNLu7h8UkYl/c=";
+        });
+      }))
+      xaver.clang-format
+      ms-python.vscode-pylance
+      ms-toolsai.jupyter
+      ms-toolsai.jupyter-keymap
+      mechatroner.rainbow-csv
+      ms-python.python
+      eamodio.gitlens
+      streetsidesoftware.code-spell-checker
       mkhl.direnv
       meezilla.json
       zokugun.explicit-folding

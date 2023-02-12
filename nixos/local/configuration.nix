@@ -193,6 +193,7 @@ in
       directories = [
         ".cache/Microsoft"
         ".config/1Password"
+        ".config/fish"
         ".config/fcitx5"
         ".config/hypr"
         ".config/microsoft-edge"

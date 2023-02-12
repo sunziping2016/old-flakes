@@ -1,5 +1,7 @@
 rec {
-  mapPackages = f: with builtins; listToAttrs (map (name: { inherit name; value = f name; }) (filter (v: v != null) (attrValues (mapAttrs (k: v: if v == "directory" && k != "_sources" then k else null) (readDir ./.)))));
+  src = builtins.path { path = ./.; name = "pkgs"; };
+  names = with builtins; filter (v: v != null) (attrValues (mapAttrs (k: v: if v == "directory" && k != "_sources" then k else null) (readDir src)));
+  mapPackages = f: with builtins; listToAttrs (map (name: { inherit name; value = f name; }) names);
   packages = pkgs: mapPackages (name: pkgs.${name});
   overlay = final: super: mapPackages (name:
     let
