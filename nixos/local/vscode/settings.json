@@ -2,6 +2,9 @@
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
+    "[python]": {
+        "editor.formatOnType": true
+    },
     "cmake.configureOnOpen": true,
     "cmake.debugConfig": {
         "sourceFileMap": {
@@ -20,6 +23,7 @@
     "editor.formatOnType": true,
     "editor.smoothScrolling": true,
     "editor.stickyScroll.enabled": true,
+    "extensions.autoUpdate": false,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
