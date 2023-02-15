@@ -34,6 +34,7 @@ in
     age.keyFile = "/var/lib/sops.key";
     secrets = {
       sun-password.neededForUsers = true;
+      u2f = { };
       "clash.yaml" = {
         sopsFile = ./secrets/clash.yaml.json;
         format = "binary";
@@ -85,7 +86,14 @@ in
     };
   };
 
+  security.pam.u2f = {
+    enable = true;
+    authFile = config.sops.secrets.u2f.path;
+    cue = true;
+  };
+
   services = {
+    pcscd.enable = true;
     tlp.enable = true;
     resolved.enable = true;
     greetd = {

@@ -32,6 +32,15 @@ nixpkgs.lib.nixosSystem rec {
         self.overlays.default
         (final: super: {
           devenv = devenv.packages.${system}.devenv;
+          # patchelf = super.patchelf.overrideAttrs
+          #   (old: rec {
+          #     pname = old.pname;
+          #     version = "0.17.2";
+          #     src = final.fetchurl {
+          #       url = "https://github.com/NixOS/${pname}/releases/download/${version}/${pname}-${version}.tar.bz2";
+          #       sha256 = "sha256-9ANtPuTY4ijewb7/8PbkbYpA6eVw4AaOOdd+YuLIvcI=";
+          #     };
+          #   });
         })
         inputs.nixpkgs-wayland.overlay
         inputs.hyprland.overlays.default

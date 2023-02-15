@@ -16,8 +16,6 @@
     },
     "doxdocgen.generic.authorEmail": "me@szp.io",
     "doxdocgen.generic.authorName": "Ziping Sun",
-    "editor.defaultFoldingRangeProvider": "zokugun.explicit-folding",
-    "editor.foldingStrategy": "auto",
     "editor.fontFamily": "'JetBrainsMono Nerd Font Mono',Consolas, 'Courier New', monospace",
     "editor.formatOnSave": true,
     "editor.formatOnType": true,

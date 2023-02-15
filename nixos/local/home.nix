@@ -115,23 +115,30 @@
       [
         ms-vscode.cpptools
       ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+      aaron-bond.better-comments
+      cschlosser.doxdocgen
+      eamodio.gitlens
       jnoortheen.nix-ide
-      yzhang.markdown-all-in-one
-      vscodevim.vim
-      ms-vscode.cmake-tools
-      xaver.clang-format
+      maptz.regionfolder
+      mechatroner.rainbow-csv
+      meezilla.json
+      mkhl.direnv
+      ms-python.python
       ms-python.vscode-pylance
       ms-toolsai.jupyter
       ms-toolsai.jupyter-keymap
-      mechatroner.rainbow-csv
-      ms-python.python
-      eamodio.gitlens
-      streetsidesoftware.code-spell-checker
-      mkhl.direnv
-      meezilla.json
-      zokugun.explicit-folding
+      ms-vscode.cmake-tools
+      ms-vscode-remote.remote-ssh
       richie5um2.vscode-sort-json
-    ]);
+      shd101wyy.markdown-preview-enhanced
+      streetsidesoftware.code-spell-checker
+      vscodevim.vim
+      xaver.clang-format
+      yzhang.markdown-all-in-one
+      # zokugun.explicit-folding
+    ]) ++ [
+      # pkgs.vscode-cpptools
+    ];
     # mutableExtensionsDir = false;
   };
   programs.gpg = {

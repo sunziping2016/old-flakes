@@ -20,3 +20,7 @@ fetch.git = "https://github.com/Dreamacro/clash-dashboard.git"
 src.webpage = "https://api.github.com/repos/kmonad/kmonad/releases"
 src.regex = "kmonad-([-.a-z0-9]+)-linux"
 fetch.url = "https://github.com/kmonad/kmonad/releases/download/$ver/kmonad-$ver-linux"
+
+[vscode-cpptools]
+src.vsmarketplace = "ms-vscode.cpptools"
+fetch.vsmarketplace = "ms-vscode.cpptools"

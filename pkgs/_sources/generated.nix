@@ -32,10 +32,19 @@
   };
   maxmind-geoip = {
     pname = "maxmind-geoip";
-    version = "20230112";
+    version = "20230212";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230112/Country.mmdb";
-      sha256 = "sha256-mMu+U3gtoZmi6LrTMTqsNZKZ+w4J6LZ16Aorneyy7P8=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230212/Country.mmdb";
+      sha256 = "sha256-Tnma6tpET4Vrm5G8KmLpsVnpD2JIKts56kZQsBIbRZ8=";
+    };
+  };
+  vscode-cpptools = {
+    pname = "vscode-cpptools";
+    version = "1.14.2";
+    src = fetchurl {
+      url = "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "cpptools-1.14.2.zip";
+      sha256 = "sha256-GRglL8Ny5eVHlLaJgFID++QXSGDRKDsNLu7h8UkYl/c=";
     };
   };
   yacd = {

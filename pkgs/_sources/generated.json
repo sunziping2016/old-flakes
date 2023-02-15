@@ -57,11 +57,26 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mMu+U3gtoZmi6LrTMTqsNZKZ+w4J6LZ16Aorneyy7P8=",
+            "sha256": "sha256-Tnma6tpET4Vrm5G8KmLpsVnpD2JIKts56kZQsBIbRZ8=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230112/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230212/Country.mmdb"
         },
-        "version": "20230112"
+        "version": "20230212"
+    },
+    "vscode-cpptools": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vscode-cpptools",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "cpptools-1.14.2.zip",
+            "sha256": "sha256-GRglL8Ny5eVHlLaJgFID++QXSGDRKDsNLu7h8UkYl/c=",
+            "type": "url",
+            "url": "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        },
+        "version": "1.14.2"
     },
     "yacd": {
         "cargoLocks": null,
