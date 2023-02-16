@@ -170,11 +170,17 @@ in
     };
   };
 
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+    storageDriver = "btrfs";
+  };
+
   users = {
     mutableUsers = false;
     users.sun = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "docker" ];
       passwordFile = config.sops.secrets.sun-password.path;
       shell = pkgs.fish;
     };
