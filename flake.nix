@@ -1,10 +1,8 @@
 {
+  description = "NixOS configuration from \"Ziping Sun <me@szp.io>\"";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kmonad = {
-      url = "github:kmonad/kmonad?submodules=1&dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    kmonad.url = "github:kmonad/kmonad?submodules=1&dir=nix";
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
     };
@@ -56,7 +54,7 @@
           };
         in
         {
-          packages = this.packages pkgs;
+          packages = this.packages system pkgs;
           legacyPackages = pkgs;
           devShells.default =
             let

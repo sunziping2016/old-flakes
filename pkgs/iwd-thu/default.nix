@@ -1,5 +1,5 @@
-{ super, ell }:
-super.iwd.override {
+{ prev, ell }:
+prev.iwd.override {
   ell = ell.overrideAttrs (_: {
     postPatch = ''
       substituteInPlace ell/tls-suites.c \

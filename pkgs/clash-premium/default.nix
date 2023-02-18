@@ -1,8 +1,11 @@
-{ sources, stdenvNoCC, lib }:
+{ sources, stdenvNoCC, lib, system }:
 
 let
-  inherit (stdenvNoCC.hostPlatform) system;
-  systems = [ "x86_64-linux" ];
+  pname = "clash-premium";
+  # inherit (stdenvNoCC.hostPlatform) system;
+  # get a list of supported system from sources by matching names
+  systems = with builtins; concatLists (filter (x: !isNull x) (map (match "${pname}-(.*)") (attrNames sources)));
+  # systems = [ "x86_64-linux" ];
 in
 stdenvNoCC.mkDerivation rec {
   pname = "clash-premium";

@@ -1,14 +1,24 @@
+with builtins;
 rec {
-  src = builtins.path { path = ./.; name = "pkgs"; };
-  names = with builtins; filter (v: v != null) (attrValues (mapAttrs (k: v: if v == "directory" && k != "_sources" then k else null) (readDir src)));
-  mapPackages = f: with builtins; listToAttrs (map (name: { inherit name; value = f name; }) names);
-  packages = pkgs: mapPackages (name: pkgs.${name});
-  overlay = final: super: mapPackages (name:
-    let
-      sources = final.callPackage ./_sources/generated.nix { };
-      package = import ./${name};
-      args = builtins.intersectAttrs (builtins.functionArgs package) { inherit super sources; };
-    in
-    final.callPackage package args
-  );
+  src = path { path = ./.; name = "flakes-pkgs"; };
+  names = filter (v: !isNull v) (attrValues (mapAttrs (k: v: if v == "directory" && k != "_sources" then k else null) (readDir src)));
+  overlay = final: prev: listToAttrs (map
+    (name:
+      let
+        sources = final.callPackage (import ./_sources/generated.nix) { };
+        package = import ./${name};
+        args = intersectAttrs (functionArgs package) { inherit prev sources; };
+      in
+      {
+        inherit name;
+        value = final.callPackage package args;
+      })
+    names);
+  packages = system: pkgs: listToAttrs (filter (pkg: elem system (pkg.value.meta.platforms or pkgs.lib.platforms.all)) (map
+    (name:
+      {
+        inherit name;
+        value = pkgs.${name};
+      })
+    names));
 }
