@@ -22,5 +22,7 @@ src.regex = "kmonad-([-.a-z0-9]+)-linux"
 fetch.url = "https://github.com/kmonad/kmonad/releases/download/$ver/kmonad-$ver-linux"
 
 [vscode-cpptools]
-src.vsmarketplace = "ms-vscode.cpptools"
-fetch.vsmarketplace = "ms-vscode.cpptools"
+# src.vsmarketplace = "ms-vscode.cpptools"
+# fetch.vsmarketplace = "ms-vscode.cpptools"
+src.github = "microsoft/vscode-cpptools"
+fetch.url = "https://github.com/microsoft/vscode-cpptools/releases/download/$ver/cpptools-linux.vsix"

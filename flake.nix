@@ -54,15 +54,12 @@
           };
         in
         {
+          formatter = pkgs.nixpkgs-fmt;
           packages = this.packages system pkgs;
           legacyPackages = pkgs;
-          devShells.default =
-            let
-              vscode-ext-fetcher = pkgs.writeShellScriptBin "vscode-ext-fetcher" (builtins.readFile "${inputs.nixpkgs}/pkgs/applications/editors/vscode/extensions/update_installed_exts.sh");
-            in
-            with pkgs; mkShell {
-              nativeBuildInputs = [ nvfetcher vscode-ext-fetcher ];
-            };
+          devShells.default = with pkgs; mkShell {
+            nativeBuildInputs = [ nvfetcher ];
+          };
         }
       ) // {
       overlays.default = this.overlay;

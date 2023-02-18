@@ -40,11 +40,10 @@
   };
   vscode-cpptools = {
     pname = "vscode-cpptools";
-    version = "1.14.3";
+    version = "v1.14.3";
     src = fetchurl {
-      url = "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "cpptools-1.14.3.zip";
-      sha256 = "sha256-5JODuuOZBfdLSOkuAdSF4yI92EGfjWqNM9kBBeYwrJo=";
+      url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.3/cpptools-linux.vsix";
+      sha256 = "sha256-/Qw9HyiiqKhXlmSjPHcUdPNKwnSrt+sPTj5B9ctjVcc=";
     };
   };
   yacd = {

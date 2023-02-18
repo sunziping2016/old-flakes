@@ -113,7 +113,7 @@
     userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     extensions = (with pkgs.vscode-extensions;
       [
-        ms-vscode.cpptools
+        # ms-vscode.cpptools
       ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
       aaron-bond.better-comments
       cschlosser.doxdocgen
@@ -137,7 +137,7 @@
       yzhang.markdown-all-in-one
       # zokugun.explicit-folding
     ]) ++ [
-      # pkgs.vscode-cpptools
+      pkgs.vscode-cpptools
     ];
     # mutableExtensionsDir = false;
   };

@@ -71,12 +71,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "cpptools-1.14.3.zip",
-            "sha256": "sha256-5JODuuOZBfdLSOkuAdSF4yI92EGfjWqNM9kBBeYwrJo=",
+            "name": null,
+            "sha256": "sha256-/Qw9HyiiqKhXlmSjPHcUdPNKwnSrt+sPTj5B9ctjVcc=",
             "type": "url",
-            "url": "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.3/cpptools-linux.vsix"
         },
-        "version": "1.14.3"
+        "version": "v1.14.3"
     },
     "yacd": {
         "cargoLocks": null,

@@ -1,21 +1,22 @@
-{ prev, sources, lib, musl }:
-(prev.vscode-utils.extensionFromVscodeMarketplace
-  {
-    name = "cpptools";
-    publisher = "ms-vscode";
+{ prev, sources, lib, musl, unzip }:
+prev.vscode-utils.buildVscodeExtension (
+  let
+    old = prev.vscode-extensions.ms-vscode.cpptools;
+  in
+  rec {
+    name = "ms-vscode-cpptools";
     version = sources.vscode-cpptools.version;
-    sha256 = sources.vscode-cpptools.src.outputHash;
-  }).overrideAttrs (_:
-let
-  old = prev.vscode-extensions.ms-vscode.cpptools;
-  postPatchLines = lib.strings.splitString "\n" old.postPatch;
-  # drop last three lines
-  postPatchs = with lib.lists; reverseList (drop 0 (reverseList postPatchLines));
-in
-rec {
-  inherit (old) nativeBuildInputs postFixup meta;
-  buildInputs = old.buildInputs ++ [ musl ];
-  postPatch = old.postPatch + ''
-    chmod +x bin/cpptools-wordexp
-  '';
-})
+
+    vscodeExtPublisher = "ms-vscode";
+    vscodeExtName = "cpptools";
+    vscodeExtUniqueId = "ms-vscode.cpptools";
+
+    src = sources.vscode-cpptools.src;
+    unpackCmd = "${unzip}/bin/unzip $curSrc";
+
+    inherit (old) nativeBuildInputs buildInputs postFixup meta;
+    postPatch = old.postPatch + ''
+      chmod +x bin/cpptools-wordexp
+    '';
+  }
+)
