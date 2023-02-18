@@ -16,10 +16,10 @@
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.01.29";
+    version = "2023.02.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz";
-      sha256 = "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz";
+      sha256 = "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=";
     };
   };
   kmonad-bin = {
@@ -40,11 +40,11 @@
   };
   vscode-cpptools = {
     pname = "vscode-cpptools";
-    version = "1.14.2";
+    version = "1.14.3";
     src = fetchurl {
-      url = "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "cpptools-1.14.2.zip";
-      sha256 = "sha256-GRglL8Ny5eVHlLaJgFID++QXSGDRKDsNLu7h8UkYl/c=";
+      url = "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "cpptools-1.14.3.zip";
+      sha256 = "sha256-5JODuuOZBfdLSOkuAdSF4yI92EGfjWqNM9kBBeYwrJo=";
     };
   };
   yacd = {

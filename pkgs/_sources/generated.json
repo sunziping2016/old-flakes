@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=",
+            "sha256": "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz"
         },
-        "version": "2023.01.29"
+        "version": "2023.02.16"
     },
     "kmonad-bin": {
         "cargoLocks": null,
@@ -71,12 +71,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "cpptools-1.14.2.zip",
-            "sha256": "sha256-GRglL8Ny5eVHlLaJgFID++QXSGDRKDsNLu7h8UkYl/c=",
+            "name": "cpptools-1.14.3.zip",
+            "sha256": "sha256-5JODuuOZBfdLSOkuAdSF4yI92EGfjWqNM9kBBeYwrJo=",
             "type": "url",
-            "url": "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.14.3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.14.2"
+        "version": "1.14.3"
     },
     "yacd": {
         "cargoLocks": null,
