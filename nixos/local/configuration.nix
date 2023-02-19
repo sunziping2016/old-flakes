@@ -214,6 +214,7 @@ in
         ".config/fish"
         ".config/fcitx5"
         ".config/hypr"
+        ".config/kitty"
         ".config/microsoft-edge"
         ".config/waybar"
         ".config/nix"

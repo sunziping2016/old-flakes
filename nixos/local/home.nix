@@ -25,6 +25,7 @@
       GTK_USE_PORTAL = "1";
       # QT_QPA_PLATFORMTHEME = "qt5ct";
       QT_STYLE_OVERRIDE = "kvantum";
+      QT_FONT_DPI = "120";
     };
   };
   gtk = {
@@ -69,7 +70,7 @@
     tdesktop
     wpsoffice
     vifm
-    xfce.thunar
+    dolphin
     kitty
     microsoft-edge
     handlr
@@ -85,9 +86,9 @@
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
-    # papirus-icon-theme
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.kio-extras
+    papirus-icon-theme
   ];
   programs.waybar = {
     enable = true;
