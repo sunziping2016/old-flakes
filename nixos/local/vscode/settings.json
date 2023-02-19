@@ -19,6 +19,7 @@
     "editor.fontFamily": "'JetBrainsMono Nerd Font Mono',Consolas, 'Courier New', monospace",
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
+    "editor.inlineSuggest.enabled": true,
     "editor.smoothScrolling": true,
     "editor.stickyScroll.enabled": true,
     "extensions.autoUpdate": false,
@@ -47,5 +48,6 @@
     "vim.sneakReplacesF": true,
     "vim.targets.enable": true,
     "vim.useSystemClipboard": true,
-    "workbench.colorTheme": "Default Dark+"
+    "workbench.colorTheme": "Sweet vscode",
+    "workbench.iconTheme": "sweet-vscode-icons"
 }

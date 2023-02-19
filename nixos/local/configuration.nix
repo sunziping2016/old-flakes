@@ -93,6 +93,8 @@ in
   };
 
   services = {
+    gnome.gnome-keyring.enable = true;
+    udisks2.enable = true;
     pcscd.enable = true;
     tlp.enable = true;
     resolved.enable = true;
@@ -144,11 +146,11 @@ in
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
-    restartTriggers = [
-      pkgs.clash-premium
-      pkgs.clash-dashboard
-      ./secrets/clash.yaml.json
-    ];
+    # restartTriggers = [
+    #   pkgs.clash-premium
+    #   pkgs.clash-dashboard
+    #   ./secrets/clash.yaml.json
+    # ];
     script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
     after = [ "network.target" "systemd-resolved.service" ];
     conflicts = [ "systemd-resolved.service" ];
@@ -207,6 +209,8 @@ in
       directories = [
         ".cache/Microsoft"
         ".config/1Password"
+        ".config/Code"
+        ".config/dconf"
         ".config/fish"
         ".config/fcitx5"
         ".config/hypr"
@@ -226,6 +230,7 @@ in
         "Projects"
         { directory = ".gnupg"; mode = "0700"; }
         { directory = ".ssh"; mode = "0700"; }
+        { directory = ".local/share/keyrings"; mode = "0700"; }
       ];
     };
     users.clash = {
@@ -278,14 +283,30 @@ in
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
+      (libsForQt5.xdg-desktop-portal-kde.overrideAttrs (old: {
+        postFixup = old.postFixup or "" + ''
+          substituteInPlace $out/share/xdg-desktop-portal/portals/kde.portal \
+            --replace 'UseIn=KDE' 'UseIn=KDE;Hyprland;' \
+            --replace 'org.freedesktop.impl.portal.ScreenCast;' "" \
+            --replace 'org.freedesktop.impl.portal.Screenshot;' "" \
+            --replace 'org.freedesktop.impl.portal.Settings;' ""
+        '';
+      }))
+      xdg-desktop-portal-hyprland
+      # see https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
+      (xdg-desktop-portal-gtk.overrideAttrs
+        (old:
+          {
+            configureFlags = [
+              "--disable-appchooser"
+            ];
+          }))
     ];
   };
 
-  fonts.enableDefaultFonts = false;
+  fonts.enableDefaultFonts =
+    false;
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
@@ -294,12 +315,13 @@ in
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
   ];
-  fonts.fontconfig.defaultFonts = pkgs.lib.mkForce {
-    serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-    sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-    monospace = [ "JetBrains Mono" ];
-    emoji = [ "Noto Color Emoji" ];
-  };
+  fonts.fontconfig.defaultFonts = pkgs.lib.mkForce
+    {
+      serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+      sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+      monospace = [ "JetBrains Mono" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
 
   i18n = {
     defaultLocale = "C.UTF-8";

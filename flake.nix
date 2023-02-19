@@ -3,9 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     kmonad.url = "github:kmonad/kmonad?submodules=1&dir=nix";
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
     hyprland = {
@@ -31,10 +29,6 @@
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    devenv = {
-      url = "github:cachix/devenv/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -63,11 +63,45 @@
         },
         "version": "20230212"
     },
-    "vscode-cpptools": {
+    "sweet": {
+        "cargoLocks": null,
+        "date": "2023-02-12",
+        "extract": null,
+        "name": "sweet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "33ad60ca0db11808fdd576b5e13b05a82bafe9e2",
+            "sha256": "sha256-NXfEBRgXOOQB+NyNI4LUrVXQRuhdbeAeU/JF1LsmcuI=",
+            "type": "git",
+            "url": "https://github.com/EliverLara/Sweet.git"
+        },
+        "version": "33ad60ca0db11808fdd576b5e13b05a82bafe9e2"
+    },
+    "vscode-extension-github-copilot": {
         "cargoLocks": null,
         "date": null,
         "extract": null,
-        "name": "vscode-cpptools",
+        "name": "vscode-extension-github-copilot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "copilot-1.73.8685.zip",
+            "sha256": "sha256-W1j1VAuSM1sgxHRIahqVncUlknT+MPi7uutY+0NURZQ=",
+            "type": "url",
+            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.73.8685/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        },
+        "version": "1.73.8685"
+    },
+    "vscode-extension-ms-vscode-cpptools": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vscode-extension-ms-vscode-cpptools",
         "passthru": null,
         "pinned": false,
         "src": {

@@ -21,17 +21,21 @@
       XMODIFIERS = "@im=fcitx";
       # ssh
       SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
+      # portal
+      GTK_USE_PORTAL = "1";
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_STYLE_OVERRIDE = "kvantum";
     };
   };
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.gnome.gnome-themes-extra;
-      name = "Adwaita-dark";
+      package = pkgs.sweet;
+      name = "Sweet";
     };
     iconTheme = {
-      package = pkgs.gnome.adwaita-icon-theme;
-      name = "Adwaita";
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus";
     };
     cursorTheme = {
       package = pkgs.vanilla-dmz;
@@ -44,10 +48,6 @@
       size = 11;
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-  };
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
   };
   wayland.windowManager.hyprland =
     let
@@ -82,10 +82,12 @@
     sops
     zeal
     cachix
-    devenv
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
+    # papirus-icon-theme
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.kio-extras
   ];
   programs.waybar = {
     enable = true;
@@ -102,9 +104,8 @@
       { name = "tide"; src = tide.src; }
     ];
   };
-  programs.mako = {
+  services.dunst = {
     enable = true;
-    defaultTimeout = 5000;
   };
   programs.vscode = {
     enable = true;
@@ -113,31 +114,41 @@
     userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
     extensions = (with pkgs.vscode-extensions;
       [
-        # ms-vscode.cpptools
-      ]) ++ (with inputs.nix-vscode-extensions.extensions."${pkgs.system}".vscode-marketplace; [
+      ]) ++ (with pkgs.vscode-marketplace; [
       aaron-bond.better-comments
+      bungcip.better-toml
       cschlosser.doxdocgen
       eamodio.gitlens
+      # github.vscode-pull-request-github
       jnoortheen.nix-ide
+      leanprover.lean4
       maptz.regionfolder
       mechatroner.rainbow-csv
       meezilla.json
       mkhl.direnv
+      ms-azuretools.vscode-docker
       ms-python.python
       ms-python.vscode-pylance
       ms-toolsai.jupyter
       ms-toolsai.jupyter-keymap
       ms-vscode.cmake-tools
+      ms-vscode.makefile-tools
+      ms-vscode-remote.remote-containers
       ms-vscode-remote.remote-ssh
+      ms-vsliveshare.vsliveshare
+      redhat.vscode-yaml
       richie5um2.vscode-sort-json
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
       vscodevim.vim
       xaver.clang-format
       yzhang.markdown-all-in-one
-      # zokugun.explicit-folding
+
+      eliverlara.sweet-vscode
+      eliverlara.sweet-vscode-icons
     ]) ++ [
-      pkgs.vscode-cpptools
+      pkgs.vscode-extension-github-copilot
+      pkgs.vscode-extension-ms-vscode-cpptools
     ];
     # mutableExtensionsDir = false;
   };
@@ -171,8 +182,33 @@
     userDirs.enable = true;
     configFile = {
       "direnv/direnvrc".source = ./direnvrc;
+      "Kvantum/Sweet".source = "${pkgs.sweet}/share/themes/Sweet/kde/Kvantum/Sweet";
+      "Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        theme=Sweet
+      '';
     };
   };
+
+  # template from https://nixos.wiki/wiki/Polkit
+  systemd.user.services.polkit-kde-agent-1 = {
+    Unit = {
+      Description = "polkit-kde-agent-1";
+      Wants = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   systemd.user.targets.hyprland-session = {
     Unit = {
       Description = "hyprland compositor session";

@@ -38,8 +38,30 @@
       sha256 = "sha256-Tnma6tpET4Vrm5G8KmLpsVnpD2JIKts56kZQsBIbRZ8=";
     };
   };
-  vscode-cpptools = {
-    pname = "vscode-cpptools";
+  sweet = {
+    pname = "sweet";
+    version = "33ad60ca0db11808fdd576b5e13b05a82bafe9e2";
+    src = fetchgit {
+      url = "https://github.com/EliverLara/Sweet.git";
+      rev = "33ad60ca0db11808fdd576b5e13b05a82bafe9e2";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-NXfEBRgXOOQB+NyNI4LUrVXQRuhdbeAeU/JF1LsmcuI=";
+    };
+    date = "2023-02-12";
+  };
+  vscode-extension-github-copilot = {
+    pname = "vscode-extension-github-copilot";
+    version = "1.73.8685";
+    src = fetchurl {
+      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.73.8685/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.73.8685.zip";
+      sha256 = "sha256-W1j1VAuSM1sgxHRIahqVncUlknT+MPi7uutY+0NURZQ=";
+    };
+  };
+  vscode-extension-ms-vscode-cpptools = {
+    pname = "vscode-extension-ms-vscode-cpptools";
     version = "v1.14.3";
     src = fetchurl {
       url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.3/cpptools-linux.vsix";

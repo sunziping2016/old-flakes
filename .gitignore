@@ -1,4 +1,5 @@
 .direnv
+result
 
 # secrets
 nixos/local/secrets/clash.yaml
