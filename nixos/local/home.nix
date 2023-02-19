@@ -139,14 +139,16 @@
       ms-vsliveshare.vsliveshare
       redhat.vscode-yaml
       richie5um2.vscode-sort-json
+      rreverser.llvm
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
+      twxs.cmake
       vscodevim.vim
       xaver.clang-format
       yzhang.markdown-all-in-one
 
-      eliverlara.sweet-vscode
-      eliverlara.sweet-vscode-icons
+      # eliverlara.sweet-vscode
+      # eliverlara.sweet-vscode-icons
     ]) ++ [
       pkgs.vscode-extension-github-copilot
       pkgs.vscode-extension-ms-vscode-cpptools

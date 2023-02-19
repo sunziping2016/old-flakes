@@ -49,5 +49,6 @@
     "vim.targets.enable": true,
     "vim.useSystemClipboard": true,
     "workbench.colorTheme": "Sweet vscode",
-    "workbench.iconTheme": "sweet-vscode-icons"
+    "workbench.iconTheme": "sweet-vscode-icons",
+    "extensions.ignoreRecommendations": true
 }
