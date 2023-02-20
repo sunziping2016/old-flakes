@@ -17,10 +17,12 @@ nixpkgs.lib.nixosSystem rec {
             "https://cache.nixos.org"
             "https://hyprland.cachix.org"
             "https://nixpkgs-wayland.cachix.org"
+            "https://sunziping2016.cachix.org"
           ];
           trusted-public-keys = [
             "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
             "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+	    "sunziping2016.cachix.org-1:rTPJkYOgU+WCgNsVI85QeJGTeeyCrExE5Gj4wxD/7lg="
           ];
           experimental-features = [ "nix-command" "flakes" ];
         };
