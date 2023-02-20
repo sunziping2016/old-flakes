@@ -36,7 +36,7 @@
     };
     iconTheme = {
       package = pkgs.papirus-icon-theme;
-      name = "Papirus";
+      name = "Papirus-Dark";
     };
     cursorTheme = {
       package = pkgs.vanilla-dmz;
@@ -77,6 +77,7 @@
     htop
     fd
     ripgrep
+    bat
     jq
     unzip
     nixpkgs-fmt
@@ -162,9 +163,7 @@
   };
   programs.direnv = {
     enable = true;
-    nix-direnv = {
-      enable = true;
-    };
+    nix-direnv.enable = true;
   };
   programs.git = {
     enable = true;

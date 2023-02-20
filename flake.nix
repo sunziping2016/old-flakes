@@ -2,8 +2,15 @@
   description = "NixOS configuration from \"Ziping Sun <me@szp.io>\"";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    kmonad.url = "github:kmonad/kmonad?submodules=1&dir=nix";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    kmonad = {
+      url = "github:kmonad/kmonad?submodules=1&dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      # see https://github.com/nix-community/nix-vscode-extensions/blob/master/flake.nix#L25
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence.url = "github:nix-community/impermanence";
     flake-utils.url = "github:numtide/flake-utils";
     hyprland = {
@@ -12,12 +19,12 @@
     };
     hyprpaper = {
       url = "github:hyprwm/hyprpaper";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs"; # seems no need
     };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixpkgs-wayland = {
+    #   url = "github:nix-community/nixpkgs-wayland";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     dhack = {
       url = "github:NickCao/dhack";
       inputs.nixpkgs.follows = "nixpkgs";

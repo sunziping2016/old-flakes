@@ -28,7 +28,7 @@ nixpkgs.lib.nixosSystem rec {
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays = [
         self.overlays.default
-        inputs.nixpkgs-wayland.overlay
+        # inputs.nixpkgs-wayland.overlay
         inputs.hyprland.overlays.default
         inputs.hyprpaper.overlays.default
         inputs.nix-vscode-extensions.overlays.default
