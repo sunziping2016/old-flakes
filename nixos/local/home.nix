@@ -101,6 +101,7 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
+      set flake "$HOME/Projects/flakes"
     '';
     plugins = with pkgs.fishPlugins; [
       { name = "tide"; src = tide.src; }
