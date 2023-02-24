@@ -3,16 +3,16 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "bf46fbd936eac84a6939360d5555e7bd1146bbbe";
+    version = "0405c2fa69473ecbc182623dce375214c94d1f80";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "bf46fbd936eac84a6939360d5555e7bd1146bbbe";
+      rev = "0405c2fa69473ecbc182623dce375214c94d1f80";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-lJQXOPlMhHBWLMWtkyaEpMc+FaPvu/++I+CF2A6vSXA=";
+      sha256 = "sha256-+RQi9GqWsn6Y5P6+Ku9ZVw2stTot6xwSuVa5h3CbdXo=";
     };
-    date = "2023-01-20";
+    date = "2023-02-22";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
@@ -40,24 +40,24 @@
   };
   sweet = {
     pname = "sweet";
-    version = "33ad60ca0db11808fdd576b5e13b05a82bafe9e2";
+    version = "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd";
     src = fetchgit {
       url = "https://github.com/EliverLara/Sweet.git";
-      rev = "33ad60ca0db11808fdd576b5e13b05a82bafe9e2";
+      rev = "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-NXfEBRgXOOQB+NyNI4LUrVXQRuhdbeAeU/JF1LsmcuI=";
+      sha256 = "sha256-jwKxQPOxk8kfSKlGnKysbQ7nNkfpfgJMgySmGrlEWJ8=";
     };
-    date = "2023-02-12";
+    date = "2023-02-20";
   };
   vscode-extension-github-copilot = {
     pname = "vscode-extension-github-copilot";
-    version = "1.73.8685";
+    version = "1.75.8985";
     src = fetchurl {
-      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.73.8685/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.73.8685.zip";
-      sha256 = "sha256-W1j1VAuSM1sgxHRIahqVncUlknT+MPi7uutY+0NURZQ=";
+      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.75.8985/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.75.8985.zip";
+      sha256 = "sha256-Ra3cJBrjRspN4TMrb6M72bfQLLXKMxB2ixpgvEk7w9E=";
     };
   };
   vscode-extension-ms-vscode-cpptools = {

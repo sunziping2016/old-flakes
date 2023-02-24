@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-01-20",
+        "date": "2023-02-22",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bf46fbd936eac84a6939360d5555e7bd1146bbbe",
-            "sha256": "sha256-lJQXOPlMhHBWLMWtkyaEpMc+FaPvu/++I+CF2A6vSXA=",
+            "rev": "0405c2fa69473ecbc182623dce375214c94d1f80",
+            "sha256": "sha256-+RQi9GqWsn6Y5P6+Ku9ZVw2stTot6xwSuVa5h3CbdXo=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "bf46fbd936eac84a6939360d5555e7bd1146bbbe"
+        "version": "0405c2fa69473ecbc182623dce375214c94d1f80"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -65,7 +65,7 @@
     },
     "sweet": {
         "cargoLocks": null,
-        "date": "2023-02-12",
+        "date": "2023-02-20",
         "extract": null,
         "name": "sweet",
         "passthru": null,
@@ -75,12 +75,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "33ad60ca0db11808fdd576b5e13b05a82bafe9e2",
-            "sha256": "sha256-NXfEBRgXOOQB+NyNI4LUrVXQRuhdbeAeU/JF1LsmcuI=",
+            "rev": "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd",
+            "sha256": "sha256-jwKxQPOxk8kfSKlGnKysbQ7nNkfpfgJMgySmGrlEWJ8=",
             "type": "git",
             "url": "https://github.com/EliverLara/Sweet.git"
         },
-        "version": "33ad60ca0db11808fdd576b5e13b05a82bafe9e2"
+        "version": "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd"
     },
     "vscode-extension-github-copilot": {
         "cargoLocks": null,
@@ -90,12 +90,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "copilot-1.73.8685.zip",
-            "sha256": "sha256-W1j1VAuSM1sgxHRIahqVncUlknT+MPi7uutY+0NURZQ=",
+            "name": "copilot-1.75.8985.zip",
+            "sha256": "sha256-Ra3cJBrjRspN4TMrb6M72bfQLLXKMxB2ixpgvEk7w9E=",
             "type": "url",
-            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.73.8685/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.75.8985/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.73.8685"
+        "version": "1.75.8985"
     },
     "vscode-extension-ms-vscode-cpptools": {
         "cargoLocks": null,
