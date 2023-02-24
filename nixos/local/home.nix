@@ -122,6 +122,7 @@
       bungcip.better-toml
       cschlosser.doxdocgen
       eamodio.gitlens
+      editorconfig.editorconfig
       # github.vscode-pull-request-github
       jnoortheen.nix-ide
       leanprover.lean4
