@@ -81,6 +81,7 @@
     gimp
     wpsoffice
     tdesktop
+    steam-run
     # xfce suite
     xfce.thunar
     xfce.mousepad

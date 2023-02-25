@@ -219,8 +219,10 @@ in
         ".config/waybar"
         ".config/nix"
         ".config/cachix"
+        ".local/share/applications"
         ".local/share/direnv"
         ".local/share/fish"
+        ".local/share/Steam"
         ".local/share/TelegramDesktop"
         ".local/share/Zeal"
         "Documents"
@@ -281,6 +283,11 @@ in
     polkitPolicyOwners = [ "sun" ];
   };
   programs.fuse.userAllowOther = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
   xdg.portal = {
     enable = true;
