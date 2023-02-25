@@ -59,7 +59,7 @@
           packages = this.packages system pkgs;
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ nvfetcher ];
+            nativeBuildInputs = [ nvfetcher sops nixpkgs-fmt ];
           };
         }
       ) // {

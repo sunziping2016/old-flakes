@@ -65,28 +65,38 @@
     };
   home.packages = with pkgs; [
     xdg-utils
-    hyprpaper
     prime-run
-    tdesktop
-    wpsoffice
-    vifm
-    dolphin
     kitty
-    microsoft-edge
     handlr
     htop
-    fd
-    ripgrep
-    bat
     jq
     unzip
-    nixpkgs-fmt
-    sops
     zeal
     cachix
+    # wayland apps
+    hyprpaper
+    # heavy apps
+    vlc
+    microsoft-edge
+    gimp
+    wpsoffice
+    tdesktop
+    # xfce suite
+    xfce.thunar
+    xfce.mousepad
+    xfce.ristretto
+    # rust/go suite
+    bat
+    fd
+    sd
+    ripgrep
+    bandwhich
+    joshuto
+    scc
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
+    # KDE suite
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.kio-extras
     papirus-icon-theme
