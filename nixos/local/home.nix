@@ -83,7 +83,6 @@
     tdesktop
     steam-run
     # xfce suite
-    xfce.thunar
     xfce.mousepad
     xfce.ristretto
     # rust/go suite
@@ -93,6 +92,7 @@
     ripgrep
     bandwhich
     joshuto
+    du-dust
     scc
     (rofi-wayland.override {
       symlink-dmenu = true;

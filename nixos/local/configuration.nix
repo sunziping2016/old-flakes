@@ -98,6 +98,8 @@ in
     pcscd.enable = true;
     tlp.enable = true;
     resolved.enable = true;
+    gvfs.enable = true;
+    tumbler.enable = true;
     greetd = {
       enable = true;
       settings = {
@@ -291,6 +293,13 @@ in
   programs.evolution = {
     enable = true;
     plugins = [ pkgs.evolution-ews ];
+  };
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
   };
   xdg.portal = {
     enable = true;
