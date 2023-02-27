@@ -209,9 +209,11 @@ in
     ];
     users.sun = {
       directories = [
+        ".ccnet"
         ".cache/Microsoft"
         ".config/1Password"
         ".config/Code"
+        ".config/Seafile"
         ".config/dconf"
         ".config/fish"
         ".config/fcitx5"
