@@ -82,6 +82,7 @@
     wpsoffice
     tdesktop
     steam-run
+    texlive.combined.scheme-full
     # xfce suite
     xfce.mousepad
     xfce.ristretto
@@ -94,6 +95,7 @@
     joshuto
     du-dust
     scc
+    seafile-client
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
@@ -135,6 +137,7 @@
       eamodio.gitlens
       editorconfig.editorconfig
       # github.vscode-pull-request-github
+      james-yu.latex-workshop
       jnoortheen.nix-ide
       leanprover.lean4
       maptz.regionfolder

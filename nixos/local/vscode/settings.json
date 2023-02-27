@@ -23,6 +23,7 @@
     "editor.smoothScrolling": true,
     "editor.stickyScroll.enabled": true,
     "extensions.autoUpdate": false,
+    "extensions.ignoreRecommendations": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
@@ -47,8 +48,5 @@
     "vim.sneak": true,
     "vim.sneakReplacesF": true,
     "vim.targets.enable": true,
-    "vim.useSystemClipboard": true,
-    "workbench.colorTheme": "Sweet vscode",
-    "workbench.iconTheme": "sweet-vscode-icons",
-    "extensions.ignoreRecommendations": true
+    "vim.useSystemClipboard": true
 }
