@@ -224,6 +224,7 @@ in
         ".config/nix"
         ".config/cachix"
         ".local/share/applications"
+        ".local/share/aspyr-media"
         ".local/share/direnv"
         ".local/share/fish"
         ".local/share/Steam"

@@ -151,6 +151,7 @@
       ms-toolsai.jupyter-keymap
       ms-vscode.cmake-tools
       ms-vscode.makefile-tools
+      ms-vscode.remote-explorer
       ms-vscode-remote.remote-containers
       ms-vscode-remote.remote-ssh
       ms-vsliveshare.vsliveshare
