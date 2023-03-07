@@ -3,23 +3,23 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "0405c2fa69473ecbc182623dce375214c94d1f80";
+    version = "595ba59c43b8f3ca721be0494bf7eae21a7f031d";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "0405c2fa69473ecbc182623dce375214c94d1f80";
+      rev = "595ba59c43b8f3ca721be0494bf7eae21a7f031d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+RQi9GqWsn6Y5P6+Ku9ZVw2stTot6xwSuVa5h3CbdXo=";
+      sha256 = "sha256-3KmVcn6GhCxbeSpD8tqJIX2TWIirW5/zbuT/AqmBDDo=";
     };
-    date = "2023-02-22";
+    date = "2023-02-28";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.02.16";
+    version = "2023.03.04";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz";
-      sha256 = "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.04.gz";
+      sha256 = "sha256-BO+TtKTDvJYnLqRx/SZZFMz0o4QSEP4xKUqMlZotq8g=";
     };
   };
   kmonad-bin = {
@@ -40,32 +40,32 @@
   };
   sweet = {
     pname = "sweet";
-    version = "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd";
+    version = "802857775599ecb40521defb1f834239c501d372";
     src = fetchgit {
       url = "https://github.com/EliverLara/Sweet.git";
-      rev = "5fda89d48432b40c43c8d9f7b5b12f9e7b0a15fd";
+      rev = "802857775599ecb40521defb1f834239c501d372";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-jwKxQPOxk8kfSKlGnKysbQ7nNkfpfgJMgySmGrlEWJ8=";
+      sha256 = "sha256-XNd+XeYXTW/2LVZdNTT0ecq5R7HFAUvfRRtuMCQJW9A=";
     };
-    date = "2023-02-20";
+    date = "2023-02-27";
   };
   vscode-extension-github-copilot = {
     pname = "vscode-extension-github-copilot";
-    version = "1.75.8985";
+    version = "1.77.9225";
     src = fetchurl {
-      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.75.8985/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.75.8985.zip";
-      sha256 = "sha256-Ra3cJBrjRspN4TMrb6M72bfQLLXKMxB2ixpgvEk7w9E=";
+      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.77.9225/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.77.9225.zip";
+      sha256 = "sha256-tRAjWiaUIkAULfgWWAKVVz7Zgugw0CQtFIdvf9fhmKs=";
     };
   };
   vscode-extension-ms-vscode-cpptools = {
     pname = "vscode-extension-ms-vscode-cpptools";
-    version = "v1.14.3";
+    version = "v1.14.4";
     src = fetchurl {
-      url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.3/cpptools-linux.vsix";
-      sha256 = "sha256-/Qw9HyiiqKhXlmSjPHcUdPNKwnSrt+sPTj5B9ctjVcc=";
+      url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.4/cpptools-linux.vsix";
+      sha256 = "sha256-ToQnYMZ/MvpidSgE3mtJPAPay3+/VIPUabPPnbmPqf8=";
     };
   };
   yacd = {
