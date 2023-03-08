@@ -28,6 +28,7 @@
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
     "notebook.lineNumbers": "on",
+    "remote.SSH.useLocalServer": false,
     "security.workspace.trust.banner": "never",
     "vim.autoSwitchInputMethod.defaultIM": "1",
     "vim.autoSwitchInputMethod.enable": true,
