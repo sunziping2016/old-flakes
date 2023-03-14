@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-02-28",
+        "date": "2023-03-18",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "595ba59c43b8f3ca721be0494bf7eae21a7f031d",
-            "sha256": "sha256-3KmVcn6GhCxbeSpD8tqJIX2TWIirW5/zbuT/AqmBDDo=",
+            "rev": "5c86e9de19f730293117da967fa6c5431ae8a1bf",
+            "sha256": "sha256-meIfvQruzYg6dXjAxBL2Usp0wVYVozcXHH2c8LyqxSI=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "595ba59c43b8f3ca721be0494bf7eae21a7f031d"
+        "version": "5c86e9de19f730293117da967fa6c5431ae8a1bf"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BO+TtKTDvJYnLqRx/SZZFMz0o4QSEP4xKUqMlZotq8g=",
+            "sha256": "sha256-ihKvpzrBTIwmmYzO1260XvwTRoXyCfi6ueOM4FFHu+Q=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.04.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.18.gz"
         },
-        "version": "2023.03.04"
+        "version": "2023.03.18"
     },
     "kmonad-bin": {
         "cargoLocks": null,
@@ -57,15 +57,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Tnma6tpET4Vrm5G8KmLpsVnpD2JIKts56kZQsBIbRZ8=",
+            "sha256": "sha256-Y/glz6HUfjox9Mn+gPzA8+tUHqV/KkIInUn4SyajUiE=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230212/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb"
         },
-        "version": "20230212"
+        "version": "20230312"
     },
     "sweet": {
         "cargoLocks": null,
-        "date": "2023-02-27",
+        "date": "2023-03-26",
         "extract": null,
         "name": "sweet",
         "passthru": null,
@@ -75,12 +75,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "802857775599ecb40521defb1f834239c501d372",
-            "sha256": "sha256-XNd+XeYXTW/2LVZdNTT0ecq5R7HFAUvfRRtuMCQJW9A=",
+            "rev": "6cf0966616c20a877a3d3422ea4c482cc1fd9246",
+            "sha256": "sha256-eEiAPSuAZq8gOLy/481pISW6LwQcTQt/1JpswpvVro8=",
             "type": "git",
             "url": "https://github.com/EliverLara/Sweet.git"
         },
-        "version": "802857775599ecb40521defb1f834239c501d372"
+        "version": "6cf0966616c20a877a3d3422ea4c482cc1fd9246"
     },
     "vscode-extension-github-copilot": {
         "cargoLocks": null,
@@ -90,12 +90,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "copilot-1.77.9225.zip",
-            "sha256": "sha256-tRAjWiaUIkAULfgWWAKVVz7Zgugw0CQtFIdvf9fhmKs=",
+            "name": "copilot-1.78.9758.zip",
+            "sha256": "sha256-qIaaM72SenMv+vtkTMBodD2JsroZLpw8qEttr5aIDQk=",
             "type": "url",
-            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.77.9225/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.78.9758/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.77.9225"
+        "version": "1.78.9758"
     },
     "vscode-extension-ms-vscode-cpptools": {
         "cargoLocks": null,
@@ -106,11 +106,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ToQnYMZ/MvpidSgE3mtJPAPay3+/VIPUabPPnbmPqf8=",
+            "sha256": "sha256-aDSHAPohytkQyaf97iGn+/ESH7n460kcA1nKReCcyuQ=",
             "type": "url",
-            "url": "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.4/cpptools-linux.vsix"
+            "url": "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.5/cpptools-linux.vsix"
         },
-        "version": "v1.14.4"
+        "version": "v1.14.5"
     },
     "yacd": {
         "cargoLocks": null,

@@ -27,8 +27,13 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
+    "latex-workshop.latex.build.forceRecipeUsage": false,
     "notebook.lineNumbers": "on",
-    "remote.SSH.useLocalServer": false,
+    "remote.SSH.remotePlatform": {
+        "szp15.com": "linux",
+        "hk.eh578599.xyz": "linux",
+        "us.eh578599.xyz": "linux"
+    },
     "security.workspace.trust.banner": "never",
     "vim.autoSwitchInputMethod.defaultIM": "1",
     "vim.autoSwitchInputMethod.enable": true,

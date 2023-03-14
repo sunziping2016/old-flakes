@@ -3,3 +3,6 @@ result
 
 # secrets
 nixos/local/secrets/clash.yaml
+
+# BLOB
+*.tar.gz

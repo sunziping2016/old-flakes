@@ -97,7 +97,11 @@ in
     udisks2.enable = true;
     pcscd.enable = true;
     tlp.enable = true;
-    resolved.enable = true;
+    resolved =
+      {
+        enable = true;
+        dnssec = "false";
+      };
     gvfs.enable = true;
     tumbler.enable = true;
     greetd = {
@@ -196,6 +200,7 @@ in
     };
     groups.clash = { };
   };
+  programs.fish.enable = true;
 
   environment.persistence."/persistent" = {
     hideMounts = true;
@@ -337,6 +342,7 @@ in
     noto-fonts-emoji
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
+    ms-fonts
   ];
   fonts.fontconfig.defaultFonts = pkgs.lib.mkForce
     {

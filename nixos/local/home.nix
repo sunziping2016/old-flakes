@@ -120,8 +120,10 @@
       { name = "tide"; src = tide.src; }
     ];
   };
-  services.dunst = {
+  services.mako = {
     enable = true;
+    borderRadius = 10;
+    defaultTimeout = 5000;
   };
   programs.vscode = {
     enable = true;
@@ -158,6 +160,7 @@
       redhat.vscode-yaml
       richie5um2.vscode-sort-json
       rreverser.llvm
+      rust-lang.rust-analyzer
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
       twxs.cmake
