@@ -5,7 +5,11 @@ stdenvNoCC.mkDerivation rec {
 
   # nativeBuildInputs = [ unzip ];
 
-  src = ./Fonts.tar.gz;
+  src = fetchTarball {
+    name = "ms-fonts";
+    url = "http://file.szp15.com/f/24f957df23b148a89480/?dl=1";
+    sha256 = "sha256:1i20pcy51nl9ziv4d2zsiafk3rki31b0gljxnxj0r2gp2baaz8la";
+  };
 
   installPhase = ''
     mkdir -p $out/share/fonts/truetype
