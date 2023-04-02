@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-03-18",
+        "date": "2023-04-01",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5c86e9de19f730293117da967fa6c5431ae8a1bf",
-            "sha256": "sha256-meIfvQruzYg6dXjAxBL2Usp0wVYVozcXHH2c8LyqxSI=",
+            "rev": "071a8531782707ae70eebd295d0c1491423c72bb",
+            "sha256": "sha256-44tXb61FH4E1yFntv5yD0+0wjixhnrqEGI09MgkH43s=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "5c86e9de19f730293117da967fa6c5431ae8a1bf"
+        "version": "071a8531782707ae70eebd295d0c1491423c72bb"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,

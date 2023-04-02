@@ -3,16 +3,16 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "5c86e9de19f730293117da967fa6c5431ae8a1bf";
+    version = "071a8531782707ae70eebd295d0c1491423c72bb";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "5c86e9de19f730293117da967fa6c5431ae8a1bf";
+      rev = "071a8531782707ae70eebd295d0c1491423c72bb";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-meIfvQruzYg6dXjAxBL2Usp0wVYVozcXHH2c8LyqxSI=";
+      sha256 = "sha256-44tXb61FH4E1yFntv5yD0+0wjixhnrqEGI09MgkH43s=";
     };
-    date = "2023-03-18";
+    date = "2023-04-01";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
