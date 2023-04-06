@@ -138,6 +138,7 @@
       cschlosser.doxdocgen
       eamodio.gitlens
       editorconfig.editorconfig
+      github.copilot-labs
       # github.vscode-pull-request-github
       james-yu.latex-workshop
       jnoortheen.nix-ide
@@ -163,6 +164,7 @@
       rust-lang.rust-analyzer
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
+      tintinweb.graphviz-interactive-preview
       twxs.cmake
       vscodevim.vim
       xaver.clang-format
