@@ -153,6 +153,7 @@
       ms-toolsai.jupyter
       ms-toolsai.jupyter-keymap
       ms-vscode.cmake-tools
+      ms-python.isort
       ms-vscode.makefile-tools
       ms-vscode.remote-explorer
       ms-vscode-remote.remote-containers
