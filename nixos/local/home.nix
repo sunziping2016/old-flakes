@@ -148,12 +148,13 @@
       meezilla.json
       mkhl.direnv
       ms-azuretools.vscode-docker
+      ms-python.black-formatter
+      ms-python.isort
       ms-python.python
       ms-python.vscode-pylance
       ms-toolsai.jupyter
       ms-toolsai.jupyter-keymap
       ms-vscode.cmake-tools
-      ms-python.isort
       ms-vscode.makefile-tools
       ms-vscode.remote-explorer
       ms-vscode-remote.remote-containers

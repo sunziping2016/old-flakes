@@ -35,6 +35,7 @@
         "us.eh578599.xyz": "linux"
     },
     "security.workspace.trust.banner": "never",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
     "vim.autoSwitchInputMethod.defaultIM": "1",
     "vim.autoSwitchInputMethod.enable": true,
     "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/bin/env fcitx5-remote",
