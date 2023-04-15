@@ -142,12 +142,12 @@ in
   };
   sound.enable = true;
 
-  systemd.services.clash-dashboard = {
-    description = "Clash dashboard";
-    script = "exec ${pkgs.sfz}/bin/sfz -r -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.clash-dashboard = {
+  #   description = "Clash dashboard";
+  #   script = "exec ${pkgs.sfz}/bin/sfz -r -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+  #   after = [ "network.target" ];
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   systemd.services.clash = {
     enable = true;

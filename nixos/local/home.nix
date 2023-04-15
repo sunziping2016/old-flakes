@@ -64,41 +64,54 @@
       '' + builtins.readFile ./hyprland.conf;
     };
   home.packages = with pkgs; [
+    # Shell
+    ## rust/go suite
+    fd
+    ripgrep
+    sd
+    exa
+    bat
+    zoxide
+    miniserve
+    bandwhich
+    joshuto
+    du-dust
+    tokei
+    hexyl
+    q
+    delta
+    procs
+    bottom
+    azure-cli
+    # Others
     xdg-utils
     prime-run
-    kitty
     handlr
-    htop
     jq
-    unzip
-    zeal
+    p7zip
     cachix
+    kitty
     # wayland apps
     hyprpaper
+    (rofi-wayland.override {
+      symlink-dmenu = true;
+    })
+    # GNOME apps
+    gnome.gnome-calendar
     # heavy apps
+    zeal
     vlc
     microsoft-edge
     gimp
+    inkscape
     wpsoffice
     tdesktop
     steam-run
     texlive.combined.scheme-full
+    seafile-client
     # xfce suite
     xfce.mousepad
     xfce.ristretto
-    # rust/go suite
-    bat
-    fd
-    sd
-    ripgrep
-    bandwhich
-    joshuto
-    du-dust
-    scc
-    seafile-client
-    (rofi-wayland.override {
-      symlink-dmenu = true;
-    })
     # KDE suite
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.kio-extras
