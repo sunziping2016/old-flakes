@@ -16,10 +16,10 @@
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.03.18";
+    version = "2023.04.13";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.18.gz";
-      sha256 = "sha256-ihKvpzrBTIwmmYzO1260XvwTRoXyCfi6ueOM4FFHu+Q=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.13.gz";
+      sha256 = "sha256-unGO/qT7LMgXDQCuaSgkKM9Dg80eIQoEKdOVApacUlI=";
     };
   };
   kmonad-bin = {
@@ -32,32 +32,32 @@
   };
   maxmind-geoip = {
     pname = "maxmind-geoip";
-    version = "20230312";
+    version = "20230412";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb";
-      sha256 = "sha256-Y/glz6HUfjox9Mn+gPzA8+tUHqV/KkIInUn4SyajUiE=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230412/Country.mmdb";
+      sha256 = "sha256-QBHvir5e0JDIYkOouFsPC7SwAQ4fxdUxZcGBWLEUejU=";
     };
   };
   sweet = {
     pname = "sweet";
-    version = "6cf0966616c20a877a3d3422ea4c482cc1fd9246";
+    version = "e19223f9ccea49703bf2e60570b13d01918e4464";
     src = fetchgit {
       url = "https://github.com/EliverLara/Sweet.git";
-      rev = "6cf0966616c20a877a3d3422ea4c482cc1fd9246";
+      rev = "e19223f9ccea49703bf2e60570b13d01918e4464";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-eEiAPSuAZq8gOLy/481pISW6LwQcTQt/1JpswpvVro8=";
+      sha256 = "sha256-y5mWlW7Y+Zh4TnwJP00tqvnJX5CC4cwmPSNQuoF0Br8=";
     };
-    date = "2023-03-26";
+    date = "2023-04-10";
   };
   vscode-extension-github-copilot = {
     pname = "vscode-extension-github-copilot";
-    version = "1.78.9758";
+    version = "1.82.15";
     src = fetchurl {
-      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.78.9758/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.78.9758.zip";
-      sha256 = "sha256-qIaaM72SenMv+vtkTMBodD2JsroZLpw8qEttr5aIDQk=";
+      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.82.15/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.82.15.zip";
+      sha256 = "sha256-v4/A7/sJ1Sa71s+nTsNXVDroSxvTt9oOGT/2I1B0z9k=";
     };
   };
   vscode-extension-ms-vscode-cpptools = {
