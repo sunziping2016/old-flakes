@@ -312,15 +312,15 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      (libsForQt5.xdg-desktop-portal-kde.overrideAttrs (old: {
-        postFixup = old.postFixup or "" + ''
-          substituteInPlace $out/share/xdg-desktop-portal/portals/kde.portal \
-            --replace 'UseIn=KDE' 'UseIn=KDE;Hyprland;' \
-            --replace 'org.freedesktop.impl.portal.ScreenCast;' "" \
-            --replace 'org.freedesktop.impl.portal.Screenshot;' "" \
-            --replace 'org.freedesktop.impl.portal.Settings;' ""
-        '';
-      }))
+      # (libsForQt5.xdg-desktop-portal-kde.overrideAttrs (old: {
+      #   postFixup = old.postFixup or "" + ''
+      #     substituteInPlace $out/share/xdg-desktop-portal/portals/kde.portal \
+      #       --replace 'UseIn=KDE' 'UseIn=KDE;Hyprland;' \
+      #       --replace 'org.freedesktop.impl.portal.ScreenCast;' "" \
+      #       --replace 'org.freedesktop.impl.portal.Screenshot;' "" \
+      #       --replace 'org.freedesktop.impl.portal.Settings;' ""
+      #   '';
+      # }))
       xdg-desktop-portal-hyprland
       # see https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
       (xdg-desktop-portal-gtk.overrideAttrs
