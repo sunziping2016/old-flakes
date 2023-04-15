@@ -1,11 +1,6 @@
 { config, pkgs, inputs, ... }:
 let
   clash-home = "/var/cache/clash";
-  wrapped-hl = pkgs.writeShellScriptBin "wrapped-hl" ''
-    cd ~
-    export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-    exec Hyprland
-  '';
   clash-resolv = pkgs.writeText "clash-resolv" ''
     nameserver 127.0.0.1
     search .
@@ -104,12 +99,12 @@ in
       };
     gvfs.enable = true;
     tumbler.enable = true;
-    greetd = {
-      enable = true;
-      settings = {
-        default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd \"${wrapped-hl}/bin/wrapped-hl\" --time";
-      };
-    };
+    # greetd = {
+    #   enable = true;
+    #   settings = {
+    #     default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd \"${wrapped-hl}/bin/wrapped-hl\" --time";
+    #   };
+    # };
     udev.extraRules = ''
       KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
     '';
@@ -138,7 +133,14 @@ in
       pulse.enable = true;
       jack.enable = true;
     };
-    xserver.videoDrivers = [ "nvidia" "amd-gpu" ];
+    xserver = {
+      enable = true;
+      videoDrivers = [ "nvidia" "amd-gpu" ];
+      displayManager = {
+        sddm.enable = true;
+        sessionPackages = [ config.home-manager.users.sun.wayland.windowManager.hyprland.package ];
+      };
+    };
   };
   sound.enable = true;
 

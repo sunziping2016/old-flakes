@@ -125,6 +125,9 @@
   };
   programs.fish = {
     enable = true;
+    loginShellInit = ''
+      export (/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+    '';
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
       set flake "$HOME/Projects/flakes"
