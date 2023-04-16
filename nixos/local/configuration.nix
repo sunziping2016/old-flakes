@@ -3,7 +3,7 @@ let
   clash-home = "/var/cache/clash";
   clash-resolv = pkgs.writeTextDir "etc/resolv.conf" ''
     nameserver 127.0.0.1
-    search .
+    search lan
   '';
   miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
@@ -28,7 +28,7 @@ in
   };
 
 
-  # region Clash
+  # region(collapsed) Clash Proxy
   home-manager.users.clash = {
     home.file = {
       "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
@@ -41,6 +41,33 @@ in
     sopsFile = ./secrets/clash.yaml.json;
     format = "binary";
     owner = "clash";
+  };
+  systemd.services.clash = {
+    enable = true;
+    description = "Clash networking service";
+    # restartTriggers = [
+    #   pkgs.clash-premium
+    #   pkgs.clash-dashboard
+    #   ./secrets/clash.yaml.json
+    # ];
+    script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
+    after = [ "network.target" "systemd-resolved.service" ];
+    conflicts = [ "systemd-resolved.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
+      User = "clash";
+      Restart = "on-failure";
+      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv}/etc/resolv.conf /etc/resolv.conf";
+      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
+    };
+  };
+  systemd.services.clash-dashboard = {
+    description = "Clash dashboard";
+    # TODO: share port
+    script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
   };
   # endregion
 
@@ -82,6 +109,7 @@ in
 
   systemd.network.networks = {
     "25-wireless" = {
+      # TODO: fix name
       name = "wlan*";
       DHCP = "yes";
     };
@@ -105,12 +133,6 @@ in
       };
     gvfs.enable = true;
     tumbler.enable = true;
-    # greetd = {
-    #   enable = true;
-    #   settings = {
-    #     default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd \"${wrapped-hl}/bin/wrapped-hl\" --time";
-    #   };
-    # };
     udev.extraRules = ''
       KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
     '';
@@ -150,33 +172,7 @@ in
   };
   sound.enable = true;
 
-  # systemd.services.clash-dashboard = {
-  #   description = "Clash dashboard";
-  #   script = "exec ${pkgs.sfz}/bin/sfz -r -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
-  #   after = [ "network.target" ];
-  #   wantedBy = [ "multi-user.target" ];
-  # };
 
-  systemd.services.clash = {
-    enable = true;
-    description = "Clash networking service";
-    # restartTriggers = [
-    #   pkgs.clash-premium
-    #   pkgs.clash-dashboard
-    #   ./secrets/clash.yaml.json
-    # ];
-    script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
-    after = [ "network.target" "systemd-resolved.service" ];
-    conflicts = [ "systemd-resolved.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
-      User = "clash";
-      Restart = "on-failure";
-      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv}/etc/resolv.conf /etc/resolv.conf";
-      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
-    };
-  };
 
   systemd.services.systemd-resolved = {
     wantedBy = pkgs.lib.mkForce [ ];
@@ -196,7 +192,7 @@ in
     mutableUsers = false;
     users.sun = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" "docker" "wireshark" ];
       passwordFile = config.sops.secrets.sun-password.path;
       shell = pkgs.fish;
     };
@@ -290,6 +286,7 @@ in
   };
   hardware.bluetooth.enable = true;
 
+  programs.wireshark.enable = true;
   programs.neovim = {
     enable = true;
     viAlias = true;

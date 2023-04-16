@@ -4,6 +4,8 @@ let
 in
 stdenvNoCC.mkDerivation
 {
+  # TODO: sddm
+  # TODO: Qt no transparent
   pname = source.pname;
   version = source.version;
 

@@ -65,7 +65,7 @@
     };
   home.packages = with pkgs; [
     # Shell
-    ## rust/go suite
+    ## CLI utilities
     fd
     ripgrep
     sd
@@ -82,7 +82,9 @@
     delta
     procs
     bottom
+    docker-compose
     azure-cli
+    mtr
     # Others
     xdg-utils
     prime-run
@@ -109,6 +111,7 @@
     steam-run
     texlive.combined.scheme-full
     seafile-client
+    wireshark
     # xfce suite
     xfce.mousepad
     xfce.ristretto
