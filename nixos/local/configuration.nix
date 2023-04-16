@@ -1,42 +1,48 @@
 { config, pkgs, inputs, ... }:
 let
   clash-home = "/var/cache/clash";
-  clash-resolv = pkgs.writeText "clash-resolv" ''
+  clash-resolv = pkgs.writeTextDir "etc/resolv.conf" ''
     nameserver 127.0.0.1
     search .
   '';
   miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
 {
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.sun = import ./home.nix;
-    users.clash = {
-      home.file = {
-        "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
-      };
-      home.stateVersion = "22.11";
-    };
-    sharedModules = [
-      inputs.hyprland.homeManagerModules.default
-    ];
-    extraSpecialArgs = { inherit inputs; };
-  };
-
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     age.keyFile = "/var/lib/sops.key";
     secrets = {
       sun-password.neededForUsers = true;
       u2f = { };
-      "clash.yaml" = {
-        sopsFile = ./secrets/clash.yaml.json;
-        format = "binary";
-        owner = "clash";
-      };
     };
   };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.sun = import ./home.nix;
+    sharedModules = [
+      inputs.hyprland.homeManagerModules.default
+    ];
+    extraSpecialArgs = { inherit inputs; };
+  };
+
+
+  # region Clash
+  home-manager.users.clash = {
+    home.file = {
+      "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
+    };
+    # TODO: share version
+    home.stateVersion = "22.11";
+  };
+  # TODO: merge yaml with templates
+  sops.secrets."clash.yaml" = {
+    sopsFile = ./secrets/clash.yaml.json;
+    format = "binary";
+    owner = "clash";
+  };
+  # endregion
 
   security.sudo = {
     extraConfig = ''
@@ -167,7 +173,7 @@ in
       AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
       User = "clash";
       Restart = "on-failure";
-      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv} /etc/resolv.conf";
+      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv}/etc/resolv.conf /etc/resolv.conf";
       ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
     };
   };

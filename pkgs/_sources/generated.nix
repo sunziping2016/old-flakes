@@ -68,12 +68,4 @@
       sha256 = "sha256-aDSHAPohytkQyaf97iGn+/ESH7n460kcA1nKReCcyuQ=";
     };
   };
-  yacd = {
-    pname = "yacd";
-    version = "v0.3.8";
-    src = fetchurl {
-      url = "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz";
-      sha256 = "sha256-1dfs3pGnCKeThhFnU+MqWfMsjLjuyA3tVsOrlOURulA=";
-    };
-  };
 }

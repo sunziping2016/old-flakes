@@ -28,6 +28,17 @@
     "files.trimFinalNewlines": true,
     "jupyter.askForKernelRestart": false,
     "latex-workshop.latex.build.forceRecipeUsage": false,
+    "maptz.regionfolder": {
+        "[nix]": {
+            "foldEnd": "# endregion",
+            "foldEndRegex": "\\s*# endregion",
+            "foldStart": "# region [NAME]",
+            "defaultFoldStartRegex": "\\s*# region\\(collapsed\\)\\s*(.*)",
+            "foldStartRegex": "\\s*# region\\s*(.*)",
+            "disableFolding": false
+        }
+    },
+    "maptz.regionfolder.collapseDefaultRegionsOnOpen": true,
     "notebook.lineNumbers": "on",
     "remote.SSH.remotePlatform": {
         "szp15.com": "linux",

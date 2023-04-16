@@ -145,7 +145,22 @@
     enable = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    userSettings = builtins.fromJSON (builtins.readFile ./vscode/settings.json);
+    userSettings = (builtins.fromJSON (builtins.readFile ./vscode/settings.json)) // {
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "${pkgs.nil}/bin/nil";
+      "nix.serverSettings" = {
+        "nil" = {
+          "diagnostics" = {
+            "ignored" = [ "unused_binding" "unused_with" ];
+          };
+          "formatting" = {
+            "command" = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+          };
+        };
+      };
+      # Actually, it's ignored when the language server is enabled. See Nix IDE details page.
+      "nix.formatterPath" = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
+    };
     extensions = (with pkgs.vscode-extensions;
       [
       ]) ++ (with pkgs.vscode-marketplace; [
