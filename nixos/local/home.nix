@@ -153,9 +153,9 @@
       "nix.serverPath" = "${pkgs.nil}/bin/nil";
       "nix.serverSettings" = {
         "nil" = {
-          "diagnostics" = {
-            "ignored" = [ "unused_binding" "unused_with" ];
-          };
+          # "diagnostics" = {
+          #   "ignored" = [ "unused_binding" "unused_with" ];
+          # };
           "formatting" = {
             "command" = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
           };
