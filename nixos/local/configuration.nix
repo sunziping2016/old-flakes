@@ -27,16 +27,16 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
+  services.caddy.enable = true;
 
   # region(collapsed) Clash Proxy
   home-manager.users.clash = {
     home.file = {
       "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
     };
-    # TODO: share version
     home.stateVersion = "22.11";
   };
-  # TODO: merge yaml with templates
+  # TODO(low): merge yaml with templates
   sops.secrets."clash.yaml" = {
     sopsFile = ./secrets/clash.yaml.json;
     format = "binary";
@@ -45,12 +45,10 @@ in
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
-    # restartTriggers = [
-    #   pkgs.clash-premium
-    #   pkgs.clash-dashboard
-    #   ./secrets/clash.yaml.json
-    # ];
-    script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path} -ext-ui ${pkgs.clash-dashboard}";
+    restartTriggers = [
+      config.sops.secrets."clash.yaml".sopsFile
+    ];
+    script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path}";
     after = [ "network.target" "systemd-resolved.service" ];
     conflicts = [ "systemd-resolved.service" ];
     wantedBy = [ "multi-user.target" ];
@@ -58,16 +56,31 @@ in
       AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
       User = "clash";
       Restart = "on-failure";
+      # TODO: try openresolv
       ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv}/etc/resolv.conf /etc/resolv.conf";
       ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
     };
   };
+  # TODO(high): fix wlan
+  services.caddy.virtualHosts."http://clash.lan".extraConfig = ''
+    encode gzip
+    file_server
+    try_files {path} /
+    root * ${pkgs.clash-dashboard}/share/clash-dashboard
+  '';
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
-    # TODO: share port
+    # TODO: clash.lan
     script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+  };
+  systemd.services.systemd-resolved = {
+    wantedBy = pkgs.lib.mkForce [ ];
+    serviceConfig = {
+      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf";
+      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
+    };
   };
   # endregion
 
@@ -101,6 +114,7 @@ in
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
+    # TODO: built-in DHCP
     wireless.iwd = {
       enable = true;
       package = pkgs.iwd-thu;
@@ -173,14 +187,6 @@ in
   sound.enable = true;
 
 
-
-  systemd.services.systemd-resolved = {
-    wantedBy = pkgs.lib.mkForce [ ];
-    serviceConfig = {
-      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf";
-      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
-    };
-  };
 
   virtualisation.docker = {
     enable = true;

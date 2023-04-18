@@ -231,6 +231,26 @@
     extraConfig = {
       commit.gpgSign = true;
       init.defaultBranch = "master";
+
+      # TODO(medium): use VS Code as Git tool https://www.roboleary.net/vscode/2020/09/15/vscode-git.html
+      merge.tool = "nvimdiff";
+      mergetool = {
+        keepBackup = false;
+        keepTemporaries = false;
+        writeToTemp = true;
+      };
+      fetch.prune = true;
+
+      # region(collapsed) https://github.com/dandavison/delta
+      core.pager = "${pkgs.delta}/bin/delta";
+      interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
+      delta = {
+        navigate = true;
+        light = false;
+      };
+      merge.conflictstyle = "diff3";
+      diff.colorMoved = "default";
+      # endregion
     };
   };
   services.gpg-agent = {
