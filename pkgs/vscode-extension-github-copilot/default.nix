@@ -1,4 +1,4 @@
-{ prev, sources, unzip }:
+{ prev, sources, unzip, autoPatchelfHook, stdenv }:
 prev.vscode-utils.buildVscodeExtension (
   let
     source = sources.vscode-extension-github-copilot;
@@ -13,7 +13,11 @@ prev.vscode-utils.buildVscodeExtension (
     vscodeExtName = "copilot";
     vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [
+      unzip
+      autoPatchelfHook
+      stdenv.cc.cc.lib
+    ];
     src = source.src;
 
     inherit (old) meta;
