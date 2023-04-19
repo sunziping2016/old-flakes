@@ -224,27 +224,11 @@ in
     ];
     users.sun = {
       directories = [
+        ".cache"
         ".ccnet"
-        ".cache/Microsoft"
-        ".config/1Password"
-        ".config/Code"
-        ".config/Seafile"
-        ".config/dconf"
-        ".config/fish"
-        ".config/fcitx5"
-        ".config/hypr"
-        ".config/kitty"
-        ".config/microsoft-edge"
-        ".config/waybar"
-        ".config/nix"
-        ".config/cachix"
-        ".local/share/applications"
-        ".local/share/aspyr-media"
-        ".local/share/direnv"
-        ".local/share/fish"
-        ".local/share/Steam"
-        ".local/share/TelegramDesktop"
-        ".local/share/Zeal"
+        ".config"
+        ".factorio"
+        ".local"
         "Documents"
         "Downloads"
         "Music"
@@ -253,7 +237,6 @@ in
         "Projects"
         { directory = ".gnupg"; mode = "0700"; }
         { directory = ".ssh"; mode = "0700"; }
-        { directory = ".local/share/keyrings"; mode = "0700"; }
       ];
     };
     users.clash = {
