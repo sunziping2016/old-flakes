@@ -26,23 +26,30 @@
     "extensions.ignoreRecommendations": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": false,
+        "plaintext": false,
+        "scminput": false,
+        "yaml": true
+    },
     "jupyter.askForKernelRestart": false,
     "latex-workshop.latex.build.forceRecipeUsage": false,
     "maptz.regionfolder": {
         "[nix]": {
+            "defaultFoldStartRegex": "\\s*# region\\(collapsed\\)\\s*(.*)",
+            "disableFolding": false,
             "foldEnd": "# endregion",
             "foldEndRegex": "\\s*# endregion",
             "foldStart": "# region [NAME]",
-            "defaultFoldStartRegex": "\\s*# region\\(collapsed\\)\\s*(.*)",
-            "foldStartRegex": "\\s*# region\\s*(.*)",
-            "disableFolding": false
+            "foldStartRegex": "\\s*# region\\s*(.*)"
         }
     },
     "maptz.regionfolder.collapseDefaultRegionsOnOpen": true,
     "notebook.lineNumbers": "on",
     "remote.SSH.remotePlatform": {
-        "szp15.com": "linux",
         "hk.eh578599.xyz": "linux",
+        "szp15.com": "linux",
         "us.eh578599.xyz": "linux"
     },
     "security.workspace.trust.banner": "never",
