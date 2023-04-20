@@ -27,8 +27,6 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
-  services.caddy.enable = true;
-
   # region(collapsed) Clash Proxy
   home-manager.users.clash = {
     home.file = {
@@ -61,19 +59,40 @@ in
       ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
     };
   };
+  services.haproxy = {
+    enable = true;
+    config = ''
+      defaults 
+        timeout connect 5s
+        timeout client 1m
+        timeout server 1m 
+
+      frontend main_ssl
+        bind 127.0.0.1:443
+        mode tcp
+
+        tcp-request inspect-delay 5s
+        tcp-request content accept if { req_ssl_hello_type 1 }
+
+        use_backend clash_ssl if { req_ssl_sni -m end .clash.lan }
+
+        default_backend clash_ssl
+
+      backend clash_ssl
+        mode tcp
+        server clash_ssl_server 127.0.0.1:9001 check
+    '';
+  };
   # TODO(high): fix wlan
-  services.caddy.virtualHosts."http://clash.lan".extraConfig = ''
-    encode gzip
-    file_server
-    try_files {path} /
-    root * ${pkgs.clash-dashboard}/share/clash-dashboard
-  '';
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
     # TODO: clash.lan
-    script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+    script = "exec ${pkgs.miniserve}/bin/miniserve --tls-cert ${clash-home}/Certificates/server.crt --tls-key ${clash-home}/Certificates/server.key --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "clash";
+    };
   };
   systemd.services.systemd-resolved = {
     wantedBy = pkgs.lib.mkForce [ ];
@@ -242,6 +261,7 @@ in
     users.clash = {
       directories = [
         ".cache"
+        "Certificates"
         "ProxyProviders"
         "RuleProviders"
       ];
@@ -355,6 +375,8 @@ in
       ];
     };
   };
+
+  security.pki.certificates = [ (builtins.readFile ./rootCA.crt) ];
 
   system.stateVersion = "22.11";
 }
