@@ -43,8 +43,9 @@ in
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
+    #! FIXME: always restart?
     restartTriggers = [
-      config.sops.secrets."clash.yaml".sopsFile
+      ./secrets/clash.yaml.json
     ];
     script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path}";
     after = [ "network.target" "systemd-resolved.service" ];
@@ -102,6 +103,50 @@ in
     };
   };
   # endregion
+  # https://wiki.archlinux.org/title/BIND
+  services.bind = {
+    enable = true;
+    #! Caution: If the server is public, there may be DNS amplification attacks.
+    cacheNetworks = [ "0.0.0.0/0" ];
+    forward = "only"; # do not fallback to recursive name lookup.
+    forwarders = [
+      "114.114.114.114"
+      "119.29.29.29"
+      "223.5.5.5"
+    ];
+    listenOn = [ ];
+    listenOnIpv6 = [ ];
+    extraOptions = ''
+      listen-on    port 5353 { 127.0.0.1; };
+      listen-on-v6 port 5353 { ::1; };
+      dnssec-validation no;
+    '';
+    zones = {
+      lan = {
+        master = true;
+        file = pkgs.writeText "lan.zone" ''
+          $ORIGIN lan.
+          $TTL 1h
+          @       IN    SOA   ns.lan. admin.lan. (
+                                2023240401   ; serial
+                                1h           ; refresh
+                                15m          ; retry
+                                1d           ; expire
+                                10m          ; minimum
+                              )
+                        NS    ns
+
+          @       IN    A     127.0.0.1
+                  IN    AAAA  ::1
+          
+          ns      IN    A     127.0.0.1
+                  IN    AAAA  ::1
+
+          clash   IN    CNAME @
+        '';
+      };
+    };
+  };
 
   security.sudo = {
     extraConfig = ''
