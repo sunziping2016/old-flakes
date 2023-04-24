@@ -56,6 +56,8 @@
     in
     {
       enable = true;
+      package = pkgs.hyprland;
+      xwayland.hidpi = true;
       systemdIntegration = false;
       nvidiaPatches = true;
       extraConfig = ''
@@ -81,10 +83,10 @@
     q
     delta
     procs
-    bottom
     docker-compose
     azure-cli
     mtr
+    htop
     # Others
     xdg-utils
     prime-run
@@ -93,13 +95,15 @@
     p7zip
     cachix
     kitty
+    nix-tree
     # wayland apps
     hyprpaper
     (rofi-wayland.override {
       symlink-dmenu = true;
     })
     # GNOME apps
-    gnome.gnome-calendar
+    # gnome.gnome-calendar
+    evince
     # heavy apps
     zeal
     vlc
@@ -112,6 +116,7 @@
     texlive.combined.scheme-full
     seafile-client
     wireshark
+    dfeet
     # xfce suite
     xfce.mousepad
     xfce.ristretto
@@ -197,7 +202,8 @@
       redhat.vscode-yaml
       richie5um2.vscode-sort-json
       rreverser.llvm
-      rust-lang.rust-analyzer
+      #! FIXME: rust-analyzer is not working
+      # rust-lang.rust-analyzer
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
       tintinweb.graphviz-interactive-preview
@@ -205,9 +211,6 @@
       vscodevim.vim
       xaver.clang-format
       yzhang.markdown-all-in-one
-
-      # eliverlara.sweet-vscode
-      # eliverlara.sweet-vscode-icons
     ]) ++ [
       pkgs.vscode-extension-github-copilot
       pkgs.vscode-extension-ms-vscode-cpptools

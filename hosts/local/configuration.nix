@@ -244,13 +244,11 @@ in
       videoDrivers = [ "nvidia" "amd-gpu" ];
       displayManager = {
         sddm.enable = true;
-        sessionPackages = [ config.home-manager.users.sun.wayland.windowManager.hyprland.package ];
+        sessionPackages = [ pkgs.hyprland ];
       };
     };
   };
   sound.enable = true;
-
-
 
   virtualisation.docker = {
     enable = true;
@@ -371,24 +369,9 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      # (libsForQt5.xdg-desktop-portal-kde.overrideAttrs (old: {
-      #   postFixup = old.postFixup or "" + ''
-      #     substituteInPlace $out/share/xdg-desktop-portal/portals/kde.portal \
-      #       --replace 'UseIn=KDE' 'UseIn=KDE;Hyprland;' \
-      #       --replace 'org.freedesktop.impl.portal.ScreenCast;' "" \
-      #       --replace 'org.freedesktop.impl.portal.Screenshot;' "" \
-      #       --replace 'org.freedesktop.impl.portal.Settings;' ""
-      #   '';
-      # }))
       xdg-desktop-portal-hyprland
       # see https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
-      (xdg-desktop-portal-gtk.overrideAttrs
-        (old:
-          {
-            configureFlags = [
-              "--disable-appchooser"
-            ];
-          }))
+      xdg-desktop-portal-gtk
     ];
   };
 

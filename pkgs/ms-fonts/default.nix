@@ -1,7 +1,7 @@
-{ sources, stdenvNoCC, lib }:
-stdenvNoCC.mkDerivation rec {
+{ stdenvNoCC, lib }:
+stdenvNoCC.mkDerivation {
   pname = "ms-fonts";
-  version = "0.0.0";
+  version = "";
 
   # nativeBuildInputs = [ unzip ];
 

@@ -41,11 +41,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpaper.url = "github:hyprwm/hyprpaper";
+    # use only modules, packages are from nixpkgs.
+    hyprland.url = "github:hyprwm/Hyprland";
     impermanence.url = "github:nix-community/impermanence";
     kmonad = {
       url = "github:kmonad/kmonad?submodules=1&dir=nix";

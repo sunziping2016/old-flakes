@@ -2,10 +2,8 @@
 
 let
   pname = "clash-premium";
-  # inherit (stdenvNoCC.hostPlatform) system;
   # get a list of supported system from sources by matching names
   systems = with builtins; concatLists (filter (x: !isNull x) (map (match "${pname}-(.*)") (attrNames sources)));
-  # systems = [ "x86_64-linux" ];
 in
 stdenvNoCC.mkDerivation rec {
   pname = "clash-premium";
@@ -20,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/Dreamacro/clash;
+    homepage = "https://github.com/Dreamacro/clash";
     description = "Close-sourced pre-built Clash binary with TUN support and more";
     license = licenses.unfree;
     platforms = systems;

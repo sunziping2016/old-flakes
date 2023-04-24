@@ -15,9 +15,10 @@ prev.vscode-utils.buildVscodeExtension (
     src = source.src;
     unpackCmd = "${unzip}/bin/unzip $curSrc";
 
-    inherit (old) nativeBuildInputs buildInputs postFixup meta;
     postPatch = old.postPatch + ''
       chmod +x bin/cpptools-wordexp
     '';
+
+    inherit (old) nativeBuildInputs buildInputs postFixup meta;
   }
 )
