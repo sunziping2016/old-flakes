@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-04-01",
+        "date": "2023-04-18",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "071a8531782707ae70eebd295d0c1491423c72bb",
-            "sha256": "sha256-44tXb61FH4E1yFntv5yD0+0wjixhnrqEGI09MgkH43s=",
+            "rev": "a71356276ed55660f9c71e5866f1fcbb3c5641d5",
+            "sha256": "sha256-brq3YOtMb+u4c6NPCoaGPcY8XR2zh18Atn+XWOuWKd4=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "071a8531782707ae70eebd295d0c1491423c72bb"
+        "version": "a71356276ed55660f9c71e5866f1fcbb3c5641d5"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-unGO/qT7LMgXDQCuaSgkKM9Dg80eIQoEKdOVApacUlI=",
+            "sha256": "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.13.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz"
         },
-        "version": "2023.04.13"
+        "version": "2023.04.16"
     },
     "kmonad-bin": {
         "cargoLocks": null,
@@ -90,12 +90,12 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "name": "copilot-1.82.15.zip",
-            "sha256": "sha256-v4/A7/sJ1Sa71s+nTsNXVDroSxvTt9oOGT/2I1B0z9k=",
+            "name": "copilot-1.84.51.zip",
+            "sha256": "sha256-JrVTf492G1NA4dE9qyLoScbPiA9sBqU9mKFAF97I0fA=",
             "type": "url",
-            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.82.15/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.84.51/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.82.15"
+        "version": "1.84.51"
     },
     "vscode-extension-ms-vscode-cpptools": {
         "cargoLocks": null,

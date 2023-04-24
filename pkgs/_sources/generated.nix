@@ -3,23 +3,23 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "071a8531782707ae70eebd295d0c1491423c72bb";
+    version = "a71356276ed55660f9c71e5866f1fcbb3c5641d5";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "071a8531782707ae70eebd295d0c1491423c72bb";
+      rev = "a71356276ed55660f9c71e5866f1fcbb3c5641d5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-44tXb61FH4E1yFntv5yD0+0wjixhnrqEGI09MgkH43s=";
+      sha256 = "sha256-brq3YOtMb+u4c6NPCoaGPcY8XR2zh18Atn+XWOuWKd4=";
     };
-    date = "2023-04-01";
+    date = "2023-04-18";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.04.13";
+    version = "2023.04.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.13.gz";
-      sha256 = "sha256-unGO/qT7LMgXDQCuaSgkKM9Dg80eIQoEKdOVApacUlI=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz";
+      sha256 = "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=";
     };
   };
   kmonad-bin = {
@@ -53,11 +53,11 @@
   };
   vscode-extension-github-copilot = {
     pname = "vscode-extension-github-copilot";
-    version = "1.82.15";
+    version = "1.84.51";
     src = fetchurl {
-      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.82.15/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.82.15.zip";
-      sha256 = "sha256-v4/A7/sJ1Sa71s+nTsNXVDroSxvTt9oOGT/2I1B0z9k=";
+      url = "https://github.gallery.vsassets.io/_apis/public/gallery/publisher/github/extension/copilot/1.84.51/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.84.51.zip";
+      sha256 = "sha256-JrVTf492G1NA4dE9qyLoScbPiA9sBqU9mKFAF97I0fA=";
     };
   };
   vscode-extension-ms-vscode-cpptools = {
