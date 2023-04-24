@@ -2,7 +2,7 @@
 result
 
 # secrets
-nixos/local/secrets/clash.yaml
+hosts/local/secrets/clash.yaml
 
 # BLOB
 *.tar.gz

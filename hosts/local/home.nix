@@ -247,6 +247,7 @@
       delta = {
         navigate = true;
         light = false;
+        line-numbers = true;
       };
       merge.conflictstyle = "diff3";
       diff.colorMoved = "default";
@@ -261,7 +262,6 @@
     enable = true;
     userDirs.enable = true;
     configFile = {
-      "direnv/direnvrc".source = ./direnvrc;
       "Kvantum/Sweet".source = "${pkgs.sweet}/share/themes/Sweet/kde/Kvantum/Sweet";
       "Kvantum/kvantum.kvconfig".text = ''
         [General]
