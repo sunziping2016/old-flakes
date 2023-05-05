@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration from \"Ziping Sun <me@szp.io>\"";
+  description = ''NixOS configuration from "Ziping Sun <me@szp.io>"'';
 
   outputs = { self, nixpkgs, flake-parts, ... }@inputs:
     let
@@ -21,13 +21,14 @@
           legacyPackages = pkgs;
 
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ nvfetcher sops ];
+            nativeBuildInputs = [ nvfetcher sops colmena ];
           };
           formatter = pkgs.nixpkgs-fmt;
         };
       flake = {
         overlays.default = this.overlay;
         nixosConfigurations.local = import ./hosts/local inputs;
+        # nixosConfigurations.aliyun-sh1 = import ./hosts/local inputs;
       };
     };
 

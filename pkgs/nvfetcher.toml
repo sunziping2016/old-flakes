@@ -29,3 +29,8 @@ fetch.vsmarketplace = "github.copilot"
 src.git = "https://github.com/EliverLara/Sweet.git"
 src.branch = "nova"
 fetch.git = "https://github.com/EliverLara/Sweet.git"
+
+# [vscode-insider]
+# src.webpage = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64"
+# src.regex = "code-insider-x64-([0-9]+)\\.tar\\.gz"
+# fetch.url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64"

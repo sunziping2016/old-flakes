@@ -154,6 +154,7 @@
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode/settings.json)) // {
+      "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/bin/haskell-language-server";
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${pkgs.nil}/bin/nil";
       "nix.serverSettings" = {
@@ -179,6 +180,8 @@
       editorconfig.editorconfig
       github.copilot-labs
       # github.vscode-pull-request-github
+      golang.go
+      haskell.haskell
       james-yu.latex-workshop
       jnoortheen.nix-ide
       leanprover.lean4

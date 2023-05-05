@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-04-18",
+        "date": "2023-04-29",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a71356276ed55660f9c71e5866f1fcbb3c5641d5",
-            "sha256": "sha256-brq3YOtMb+u4c6NPCoaGPcY8XR2zh18Atn+XWOuWKd4=",
+            "rev": "bd9971a0aad807cf121c29bf20c55f7a82d02043",
+            "sha256": "sha256-hLDAJLQPtyaoTS+Y0GjzDBqdyF68idOajmQGJXiE/nQ=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "a71356276ed55660f9c71e5866f1fcbb3c5641d5"
+        "version": "bd9971a0aad807cf121c29bf20c55f7a82d02043"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -65,7 +65,7 @@
     },
     "sweet": {
         "cargoLocks": null,
-        "date": "2023-04-10",
+        "date": "2023-04-29",
         "extract": null,
         "name": "sweet",
         "passthru": null,
@@ -75,12 +75,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e19223f9ccea49703bf2e60570b13d01918e4464",
-            "sha256": "sha256-y5mWlW7Y+Zh4TnwJP00tqvnJX5CC4cwmPSNQuoF0Br8=",
+            "rev": "fb691988f68737556f30c54a6df6d440b9053699",
+            "sha256": "sha256-v6bVu8ClgUFMWhwfwrcrsaRm7SusMumuiUpQQ+Yqjlw=",
             "type": "git",
             "url": "https://github.com/EliverLara/Sweet.git"
         },
-        "version": "e19223f9ccea49703bf2e60570b13d01918e4464"
+        "version": "fb691988f68737556f30c54a6df6d440b9053699"
     },
     "vscode-extension-github-copilot": {
         "cargoLocks": null,
@@ -106,10 +106,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aDSHAPohytkQyaf97iGn+/ESH7n460kcA1nKReCcyuQ=",
+            "sha256": "sha256-Fz/8zgPLq6nYnDEk9zkQp5y4uTnDJma6MbFpTJrJhGo=",
             "type": "url",
-            "url": "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.5/cpptools-linux.vsix"
+            "url": "https://github.com/microsoft/vscode-cpptools/releases/download/v1.15.4/cpptools-linux.vsix"
         },
-        "version": "v1.14.5"
+        "version": "v1.15.4"
     }
 }

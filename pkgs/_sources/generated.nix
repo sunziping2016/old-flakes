@@ -3,16 +3,16 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "a71356276ed55660f9c71e5866f1fcbb3c5641d5";
+    version = "bd9971a0aad807cf121c29bf20c55f7a82d02043";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "a71356276ed55660f9c71e5866f1fcbb3c5641d5";
+      rev = "bd9971a0aad807cf121c29bf20c55f7a82d02043";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-brq3YOtMb+u4c6NPCoaGPcY8XR2zh18Atn+XWOuWKd4=";
+      sha256 = "sha256-hLDAJLQPtyaoTS+Y0GjzDBqdyF68idOajmQGJXiE/nQ=";
     };
-    date = "2023-04-18";
+    date = "2023-04-29";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
@@ -40,16 +40,16 @@
   };
   sweet = {
     pname = "sweet";
-    version = "e19223f9ccea49703bf2e60570b13d01918e4464";
+    version = "fb691988f68737556f30c54a6df6d440b9053699";
     src = fetchgit {
       url = "https://github.com/EliverLara/Sweet.git";
-      rev = "e19223f9ccea49703bf2e60570b13d01918e4464";
+      rev = "fb691988f68737556f30c54a6df6d440b9053699";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-y5mWlW7Y+Zh4TnwJP00tqvnJX5CC4cwmPSNQuoF0Br8=";
+      sha256 = "sha256-v6bVu8ClgUFMWhwfwrcrsaRm7SusMumuiUpQQ+Yqjlw=";
     };
-    date = "2023-04-10";
+    date = "2023-04-29";
   };
   vscode-extension-github-copilot = {
     pname = "vscode-extension-github-copilot";
@@ -62,10 +62,10 @@
   };
   vscode-extension-ms-vscode-cpptools = {
     pname = "vscode-extension-ms-vscode-cpptools";
-    version = "v1.14.5";
+    version = "v1.15.4";
     src = fetchurl {
-      url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.5/cpptools-linux.vsix";
-      sha256 = "sha256-aDSHAPohytkQyaf97iGn+/ESH7n460kcA1nKReCcyuQ=";
+      url = "https://github.com/microsoft/vscode-cpptools/releases/download/v1.15.4/cpptools-linux.vsix";
+      sha256 = "sha256-Fz/8zgPLq6nYnDEk9zkQp5y4uTnDJma6MbFpTJrJhGo=";
     };
   };
 }
