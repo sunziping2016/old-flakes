@@ -12,6 +12,7 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
+              inputs.colmena.overlay
               self.overlays.default
             ];
           };
@@ -28,11 +29,33 @@
       flake = {
         overlays.default = this.overlay;
         nixosConfigurations.local = import ./hosts/local inputs;
-        # nixosConfigurations.aliyun-sh1 = import ./hosts/local inputs;
+        colmena = {
+          meta = {
+            specialArgs = {
+              inherit self inputs;
+              data.keys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAamaMcCAc7DhTJjDqBwXTWhewX0OI8vAuXLvc17yqK/ cardno:19_795_283"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVrZ+iCcyYQOc0gsZrPW1x3Dl1rNk/mI9OwnrHTROns sun@local"
+              ];
+            };
+            nixpkgs = import nixpkgs {
+              system = "x86_64-linux";
+            };
+          };
+          hydra = { data, nodes, pkgs, modulesPath, ... }: {
+            deployment.targetHost = "hydra";
+            imports = [ ./hosts/hydra ];
+          };
+        };
       };
     };
 
   inputs = {
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dhack = {
       url = "github:NickCao/dhack";
       inputs.nixpkgs.follows = "nixpkgs";

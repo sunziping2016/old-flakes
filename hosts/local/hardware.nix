@@ -18,22 +18,29 @@
     {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = [ "defaults" "size=8G" "mode=755" ];
+      options = [ "defaults" "size=32G" "mode=755" ];
     };
 
-  fileSystems."/persistent" =
+  fileSystems."/persist" =
     {
-      device = "/dev/disk/by-uuid/d256616b-baa7-47ea-8967-84e85f1809bb";
+      device = "/dev/disk/by-uuid/03d5b334-fa0d-4707-b250-4bebaf82ac1c";
       fsType = "btrfs";
-      options = [ "subvol=persistent" "noatime" "compress=zstd" "autodefrag" ];
+      options = [ "subvol=persist" "noatime" "compress=zstd" "discard=async" "space_cache=v2" "autodefrag" ];
       neededForBoot = true;
     };
 
   fileSystems."/nix" =
     {
-      device = "/dev/disk/by-uuid/d256616b-baa7-47ea-8967-84e85f1809bb";
+      device = "/dev/disk/by-uuid/03d5b334-fa0d-4707-b250-4bebaf82ac1c";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" "autodefrag" ];
+      options = [ "subvol=nix" "noatime" "compress=zstd" "discard=async" "space_cache=v2" "autodefrag" ];
+    };
+
+  fileSystems."/swap" =
+    {
+      device = "/dev/disk/by-uuid/03d5b334-fa0d-4707-b250-4bebaf82ac1c";
+      fsType = "btrfs";
+      options = [ "subvol=swap" "noatime" "nodatacow" "discard=async" "space_cache=v2" "autodefrag" ];
     };
 
   fileSystems."/boot" =
@@ -43,7 +50,9 @@
     };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/d3a585dd-c974-4433-a884-31f934b6daf6"; }];
+    [
+      { device = "/swap/swapfile"; size = 32 * 1024; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -53,5 +62,6 @@
   # networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableAllFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
 }

@@ -1,19 +1,20 @@
 { config, pkgs, inputs, ... }:
 let
   clash-home = "/var/cache/clash";
-  clash-resolv = pkgs.writeTextDir "etc/resolv.conf" ''
-    nameserver 127.0.0.1
-    search lan
-  '';
   miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
 {
   sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/var/lib/sops.key";
     secrets = {
       sun-password.neededForUsers = true;
       u2f = { };
+      clash-config = {
+        name = "clash-config.yaml";
+        owner = "clash";
+        restartUnits = [ "clash.service" ];
+      };
     };
   };
 
@@ -34,30 +35,63 @@ in
     };
     home.stateVersion = "22.11";
   };
-  # TODO(low): merge yaml with templates
-  sops.secrets."clash.yaml" = {
-    sopsFile = ./secrets/clash.yaml.json;
-    format = "binary";
-    owner = "clash";
-  };
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
-    #! FIXME: always restart?
-    restartTriggers = [
-      ./secrets/clash.yaml.json
-    ];
-    script = "exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f ${config.sops.secrets."clash.yaml".path}";
+    # TODO: add reload support
+    script = ''
+      temp_file=$(mktemp)
+      ${pkgs.yq-go}/bin/yq ea -eM "select(fileIndex==0)+select(fileIndex==1)" ${./clash.template.yaml} ${config.sops.secrets.clash-config.path} > $temp_file
+      exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f $temp_file
+    '';
     after = [ "network.target" "systemd-resolved.service" ];
     conflicts = [ "systemd-resolved.service" ];
     wantedBy = [ "multi-user.target" ];
+    serviceConfig =
+      {
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
+        User = "clash";
+        Restart = "on-failure";
+      };
+  };
+  systemd.services.clash-resolvconf = {
+    enable = true;
+    description = "Clash watchdog";
+    script =
+      let
+        clash-resolv = pkgs.writeText "clash-resolv.conf" ''
+          nameserver 127.0.0.2
+          search lan
+        '';
+      in
+      ''
+        online=0
+        while true; do
+          set +e
+          ip=$(${pkgs.q}/bin/q -f json www.gstatic.com @127.0.0.2 A | ${pkgs.jq}/bin/jq -r .Answers[0].A)
+          set -e
+          if [ $? -eq 0 ] && ${pkgs.curl}/bin/curl -s -m 3 --resolve www.gstatic.com:80:$ip http://www.gstatic.com/generate_204; then
+            new_online=1
+          else
+            new_online=0
+          fi
+          if [ $online -eq 0 ] && [ $new_online -eq 1 ]; then
+            echo "Online!"
+            ${pkgs.openresolv}/bin/resolvconf -m 10 -x -a Clash < ${clash-resolv}
+            sleep 10
+          elif [ $online -eq 1 ] && [ $new_online -eq 0 ]; then
+            echo "Offline!"
+            ${pkgs.openresolv}/bin/resolvconf -fd Clash
+            sleep 3
+          fi
+          online=$new_online
+        done
+      '';
+    bindsTo = [ "clash.service" ];
+    after = [ "clash.service" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
-      User = "clash";
-      Restart = "on-failure";
-      # TODO: try openresolv
-      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs ${clash-resolv}/etc/resolv.conf /etc/resolv.conf";
-      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
+      ExecStopPost = "${pkgs.openresolv}/bin/resolvconf -fd Clash";
     };
   };
   services.haproxy = {
@@ -88,66 +122,14 @@ in
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
     # TODO: clash.lan
-    script = "exec ${pkgs.miniserve}/bin/miniserve --tls-cert ${clash-home}/Certificates/server.crt --tls-key ${clash-home}/Certificates/server.key --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+    script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       User = "clash";
     };
   };
-  systemd.services.systemd-resolved = {
-    wantedBy = pkgs.lib.mkForce [ ];
-    serviceConfig = {
-      ExecStartPre = "+${pkgs.coreutils}/bin/ln -fs /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf";
-      ExecStopPost = "+${pkgs.coreutils}/bin/rm -f /etc/resolv.conf";
-    };
-  };
   # endregion
-  # https://wiki.archlinux.org/title/BIND
-  services.bind = {
-    enable = true;
-    #! Caution: If the server is public, there may be DNS amplification attacks.
-    cacheNetworks = [ "0.0.0.0/0" ];
-    forward = "only"; # do not fallback to recursive name lookup.
-    forwarders = [
-      "114.114.114.114"
-      "119.29.29.29"
-      "223.5.5.5"
-    ];
-    listenOn = [ ];
-    listenOnIpv6 = [ ];
-    extraOptions = ''
-      listen-on    port 5353 { 127.0.0.1; };
-      listen-on-v6 port 5353 { ::1; };
-      dnssec-validation no;
-    '';
-    zones = {
-      lan = {
-        master = true;
-        file = pkgs.writeText "lan.zone" ''
-          $ORIGIN lan.
-          $TTL 1h
-          @       IN    SOA   ns.lan. admin.lan. (
-                                2023240401   ; serial
-                                1h           ; refresh
-                                15m          ; retry
-                                1d           ; expire
-                                10m          ; minimum
-                              )
-                        NS    ns
-
-          @       IN    A     127.0.0.1
-                  IN    AAAA  ::1
-          
-          ns      IN    A     127.0.0.1
-                  IN    AAAA  ::1
-
-          clash   IN    CNAME @
-        '';
-      };
-    };
-  };
-
   security.sudo = {
     extraConfig = ''
       Defaults lecture="never"
@@ -182,8 +164,27 @@ in
     wireless.iwd = {
       enable = true;
       package = pkgs.iwd-thu;
+      settings = {
+        Network = {
+          NameResolvingService = "resolvconf";
+        };
+      };
+    };
+    resolvconf.useLocalResolver = false;
+    networkmanager = {
+      enable = true;
+      dns = "dnsmasq";
+      wifi.backend = "iwd";
     };
   };
+  environment.etc."NetworkManager/dnsmasq.d/lan.conf".text = ''
+    domain-needed
+    bogus-priv
+    addn-hosts=/etc/hosts
+    address=/local.lan/127.0.0.1
+    address=/local.lan/::1
+    cache-size=10000
+  '';
 
   systemd.network.networks = {
     "25-wireless" = {
@@ -204,11 +205,10 @@ in
     udisks2.enable = true;
     pcscd.enable = true;
     tlp.enable = true;
-    resolved =
-      {
-        enable = true;
-        dnssec = "false";
-      };
+    resolved = {
+      enable = false;
+      dnssec = "false";
+    };
     gvfs.enable = true;
     tumbler.enable = true;
     udev.extraRules = ''
@@ -240,12 +240,20 @@ in
       jack.enable = true;
     };
     xserver = {
-      enable = true;
       videoDrivers = [ "nvidia" "amd-gpu" ];
-      displayManager = {
-        sddm.enable = true;
-        sessionPackages = [ pkgs.hyprland ];
-      };
+      # displayManager = {
+      #   gdm.enable = true;
+      #   sessionPackages = [ pkgs.hyprland ];
+      # };
+    };
+  };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "hyprland" ''
+          export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+          exec ${pkgs.hyprland}/bin/Hyprland
+        ''}";
     };
   };
   sound.enable = true;
@@ -273,8 +281,10 @@ in
     groups.clash = { };
   };
   programs.fish.enable = true;
+  programs.nix-index.enable = true;
+  programs.command-not-found.enable = false;
 
-  environment.persistence."/persistent" = {
+  environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
       "/etc/nixos"
@@ -406,5 +416,5 @@ in
 
   security.pki.certificates = [ (builtins.readFile ./rootCA.crt) ];
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }

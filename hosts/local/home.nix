@@ -105,6 +105,7 @@
     # gnome.gnome-calendar
     evince
     # heavy apps
+    feishu
     zeal
     vlc
     microsoft-edge
@@ -120,6 +121,7 @@
     # xfce suite
     xfce.mousepad
     xfce.ristretto
+    networkmanagerapplet
     # KDE suite
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.kio-extras
@@ -151,10 +153,11 @@
   };
   programs.vscode = {
     enable = true;
+    package = pkgs.vscode;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     userSettings = (builtins.fromJSON (builtins.readFile ./vscode/settings.json)) // {
-      "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/bin/haskell-language-server";
+      "haskell.serverExecutablePath" = "${pkgs.haskell-language-server}/bin/haskell-language-server-wrapper";
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${pkgs.nil}/bin/nil";
       "nix.serverSettings" = {
@@ -172,18 +175,18 @@
     };
     extensions = (with pkgs.vscode-extensions;
       [
-      ]) ++ (with pkgs.vscode-marketplace; [
+      ]) ++ (with (pkgs.forVSCodeVersion pkgs.vscode.version).vscode-marketplace; [
       aaron-bond.better-comments
       bungcip.better-toml
       cschlosser.doxdocgen
-      eamodio.gitlens
       editorconfig.editorconfig
       github.copilot-labs
-      # github.vscode-pull-request-github
+      github.vscode-pull-request-github
       golang.go
       haskell.haskell
       james-yu.latex-workshop
       jnoortheen.nix-ide
+      justusadam.language-haskell
       leanprover.lean4
       maptz.regionfolder
       mechatroner.rainbow-csv
@@ -203,10 +206,10 @@
       ms-vscode-remote.remote-ssh
       ms-vsliveshare.vsliveshare
       redhat.vscode-yaml
-      richie5um2.vscode-sort-json
+      #! FIXME: incompatible
+      # richie5um2.vscode-sort-json
       rreverser.llvm
-      #! FIXME: rust-analyzer is not working
-      # rust-lang.rust-analyzer
+      signageos.signageos-vscode-sops
       shd101wyy.markdown-preview-enhanced
       streetsidesoftware.code-spell-checker
       tintinweb.graphviz-interactive-preview
@@ -214,9 +217,12 @@
       vscodevim.vim
       xaver.clang-format
       yzhang.markdown-all-in-one
+    ]) ++ (with (pkgs.forVSCodeVersion pkgs.vscode.version).vscode-marketplace-release; [
+      eamodio.gitlens
+      rust-lang.rust-analyzer
     ]) ++ [
       pkgs.vscode-extension-github-copilot
-      pkgs.vscode-extension-ms-vscode-cpptools
+      pkgs.vscode-extension-ms-vscode-cpptools #?
     ];
     # mutableExtensionsDir = false;
   };
@@ -263,6 +269,20 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+  };
+  programs.ssh = {
+    enable = true;
+    compression = true;
+    serverAliveInterval = 30;
+    matchBlocks = {
+      hydra = {
+        user = "root";
+        hostname = "sh1.szp15.com";
+      };
+    };
+    extraConfig = ''
+      CheckHostIP no
+    '';
   };
   xdg = {
     enable = true;
