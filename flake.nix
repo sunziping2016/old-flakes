@@ -20,7 +20,6 @@
         {
           packages = this.packages system pkgs;
           legacyPackages = pkgs;
-
           devShells.default = with pkgs; mkShell {
             nativeBuildInputs = [ nvfetcher sops colmena ];
           };
@@ -52,13 +51,11 @@
     };
 
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    sops-nix.url = "github:Mic92/sops-nix";
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dhack = {
-      url = "github:NickCao/dhack";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
@@ -81,7 +78,5 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    sops-nix.url = "github:Mic92/sops-nix";
   };
 }

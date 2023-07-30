@@ -1,7 +1,6 @@
 { config, pkgs, inputs, ... }:
 let
   clash-home = "/var/lib/clash";
-  miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
 {
   sops = {
@@ -10,7 +9,7 @@ in
     secrets = {
       sun-password.neededForUsers = true;
       u2f = { };
-      clash-config = {
+      "clash-config.yaml" = {
         name = "clash-config.yaml";
         owner = "clash";
         restartUnits = [ "clash.service" ];
@@ -28,12 +27,6 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
-  # services.openssh = {
-  #   enable = true;
-  #   settings.PasswordAuthentication = true;
-  # };
-
-  # region(collapsed) Clash Proxy
   home-manager.users.clash = {
     home.file = {
       "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
@@ -43,10 +36,9 @@ in
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
-    # TODO: add reload support
     script = ''
       temp_file=$(mktemp)
-      ${pkgs.yq-go}/bin/yq ea -eM "select(fileIndex==0)+select(fileIndex==1)" ${./clash.template.yaml} ${config.sops.secrets.clash-config.path} > $temp_file
+      ${pkgs.yq-go}/bin/yq ea -eM "select(fileIndex==0)+select(fileIndex==1)" ${./clash.yaml} ${config.sops.secrets."clash-config.yaml".path} > $temp_file
       exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f $temp_file
     '';
     after = [ "network.target" "systemd-resolved.service" ];
@@ -82,7 +74,7 @@ in
           if [ $online -eq 0 ] && [ $new_online -eq 1 ]; then
             echo "Online!"
             ${pkgs.openresolv}/bin/resolvconf -m 10 -x -a Clash < ${clash-resolv}
-            sleep 10
+            sleep 60
           elif [ $online -eq 1 ] && [ $new_online -eq 0 ]; then
             echo "Offline!"
             ${pkgs.openresolv}/bin/resolvconf -fd Clash
@@ -98,33 +90,9 @@ in
       ExecStopPost = "${pkgs.openresolv}/bin/resolvconf -fd Clash";
     };
   };
-  services.haproxy = {
-    enable = true;
-    config = ''
-      defaults 
-        timeout connect 5s
-        timeout client 1m
-        timeout server 1m 
 
-      frontend main_ssl
-        bind 127.0.0.1:443
-        mode tcp
-
-        tcp-request inspect-delay 5s
-        tcp-request content accept if { req_ssl_hello_type 1 }
-
-        use_backend clash_ssl if { req_ssl_sni -m end .clash.lan }
-
-        default_backend clash_ssl
-
-      backend clash_ssl
-        mode tcp
-        server clash_ssl_server 127.0.0.1:9001 check
-    '';
-  };
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
-    # TODO: clash.lan
     script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
@@ -132,7 +100,7 @@ in
       User = "clash";
     };
   };
-  # endregion
+
   security.sudo = {
     extraConfig = ''
       Defaults lecture="never"
@@ -161,7 +129,6 @@ in
     networkmanager = {
       enable = true;
       dns = "dnsmasq";
-      # wifi.backend = "iwd";
     };
     wireless.networks = {
       "ChinaNet-sun".psk = "@ChinaNet-sun@";
@@ -193,26 +160,7 @@ in
     };
     gvfs.enable = true;
     tumbler.enable = true;
-    # udev.extraRules = ''
-    #   KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
-    # '';
     printing.enable = true;
-    # kmonad = {
-    #   enable = true;
-    #   keyboards = pkgs.lib.mapAttrs
-    #     (_: value: {
-    #       device = value;
-    #       defcfg = {
-    #         enable = true;
-    #         fallthrough = true;
-    #       };
-    #       config = builtins.readFile ./kmonad/internal.kbd;
-    #     })
-    #     {
-    #       internal = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-    #       miiiw-art-z870 = "/dev/${miiiw-art-z870-path}";
-    #     };
-    # };
     blueman.enable = true;
     pipewire = {
       enable = true;
@@ -227,24 +175,13 @@ in
         xterm.enable = false;
         xfce = {
           enable = true;
-          # noDesktop = true;
-          # enableXfwm = false;
         };
       };
       displayManager.defaultSession = "xfce";
-      # windowManager.i3.enable = true;
       videoDrivers = [ "nvidia" "amd-gpu" ];
     };
   };
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "hyprland" ''
-  #         export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-  #         exec ${pkgs.hyprland}/bin/Hyprland
-  #       ''}";
-  #   };
-  # };
+
   services.teamviewer.enable = true;
   sound.enable = true;
 
@@ -253,17 +190,6 @@ in
     enableNvidia = true;
     storageDriver = "btrfs";
   };
-
-  # services.create_ap = {
-  #   enable = true;
-  #   settings = {
-  #     INTERNET_IFACE = "wlp3s0";
-  #     WIFI_IFACE = "wlp3s0";
-  #     SSID = "nixos-sun";
-  #     #! FIXME: better password management (override config file location)
-  #     PASSPHRASE = "20140615";
-  #   };
-  # };
 
   users = {
     mutableUsers = false;
@@ -328,11 +254,6 @@ in
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        # nvidia-vaapi-driver
-        # mesa
-        # nvidia
-      ];
     };
   };
   hardware.nvidia = {
@@ -360,8 +281,8 @@ in
   programs.fuse.userAllowOther = true;
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
   programs.evolution = {
     enable = true;
@@ -377,8 +298,6 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      # xdg-desktop-portal-hyprland
-      # see https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
       xdg-desktop-portal-gtk
     ];
   };
@@ -411,7 +330,8 @@ in
     };
   };
 
-  security.pki.certificates = [ (builtins.readFile ./rootCA.crt) ];
+  services.xserver.xkbOptions = "ctrl:escape";
+  console.useXkbConfig = true;
 
   system.stateVersion = "23.05";
 }
