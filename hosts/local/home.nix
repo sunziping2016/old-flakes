@@ -9,7 +9,7 @@
       QT_IM_MODULE = "fcitx";
       XMODIFIERS = "@im=fcitx";
       # ssh
-      SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
+      # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
       # portal
       GTK_USE_PORTAL = "1";
     };
@@ -17,54 +17,63 @@
   gtk = {
     enable = true;
   };
-  home.packages = with pkgs; [
-    # Shell
-    ## CLI utilities
-    fd
-    ripgrep
-    sd
-    exa
-    bat
-    zoxide
-    miniserve
-    bandwhich
-    joshuto
-    du-dust
-    tokei
-    hexyl
-    q
-    delta
-    procs
-    docker-compose
-    azure-cli
-    mtr
-    htop
-    # Others
-    xdg-utils
-    prime-run
-    handlr
-    jq
-    p7zip
-    cachix
-    kitty
-    nix-tree
-    # gnome.gnome-calendar
-    evince
-    # heavy apps
-    feishu
-    vlc
-    microsoft-edge
-    gimp
-    inkscape
-    wpsoffice
-    tdesktop
-    steam-run
-    texlive.combined.scheme-full
-    seafile-client
-    wireshark
-    dfeet
-    networkmanagerapplet
-  ];
+  home.file.".xprofile" = {
+    executable = true;
+    text = ''
+      export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+      ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
+    '';
+  };
+
+  home.packages = with pkgs;
+    [
+      # Shell
+      ## CLI utilities
+      fd
+      ripgrep
+      sd
+      exa
+      bat
+      zoxide
+      miniserve
+      bandwhich
+      joshuto
+      du-dust
+      tokei
+      hexyl
+      q
+      delta
+      procs
+      docker-compose
+      azure-cli
+      mtr
+      htop
+      # Others
+      xdg-utils
+      prime-run
+      handlr
+      jq
+      p7zip
+      cachix
+      kitty
+      nix-tree
+      # gnome.gnome-calendar
+      evince
+      # heavy apps
+      feishu
+      vlc
+      microsoft-edge
+      gimp
+      inkscape
+      wpsoffice
+      tdesktop
+      steam-run
+      texlive.combined.scheme-full
+      seafile-client
+      wireshark
+      dfeet
+      networkmanagerapplet
+    ];
   programs.fish = {
     enable = true;
     loginShellInit = ''
@@ -123,7 +132,11 @@
   };
   services.gpg-agent = {
     enable = true;
+    # xfconf-query -c xfce4-session -p /startup/ssh-agent/type -n -t string -s gpg-agent
     enableSshSupport = true;
+    sshKeys = [
+      "3770D6CF9F129A7A699AECA8248F3FE0BC366A21"
+    ];
   };
   programs.ssh = {
     enable = true;

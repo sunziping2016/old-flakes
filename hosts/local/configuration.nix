@@ -50,19 +50,6 @@ in
       Restart = "on-failure";
     };
   };
-  systemd.services.xcape = {
-    enable = true;
-    description = "Xcape";
-    script = ''
-      exec ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
-    '';
-    after = [ "graphical.target" ];
-    wantedBy = [ "graphical.target" ];
-    serviceConfig = {
-      Type = "forking";
-      Restart = "on-failure";
-    };
-  };
   systemd.services.clash-resolvconf = {
     enable = true;
     description = "Clash watchdog";
