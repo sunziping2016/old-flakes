@@ -1,6 +1,10 @@
 keys:
   - &admin_sun 2C6A8AB960E26079CC987A0AEE55F605B6FAE752
   - &server_local age1cxkg38f0jl43ut6wqfmfdr3cvg4hq830eajge7pgmdmjsttuwvkq4luj6f
+  - &server_hydra age1n72tu7kv98kcly6tty6ajnwwhg53xrafejw7mfmhjegqa3sssqkqrqe7ym
 creation_rules:
-  - pgp: *admin_sun
-    age: *server_local
+  - pgp:
+      - *admin_sun
+    age:
+      - *server_local
+      - *server_hydra

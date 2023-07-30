@@ -27,6 +27,7 @@
           formatter = pkgs.nixpkgs-fmt;
         };
       flake = {
+        nixosModules = import ./modules;
         overlays.default = this.overlay;
         nixosConfigurations.local = import ./hosts/local inputs;
         colmena = {
@@ -42,7 +43,7 @@
               system = "x86_64-linux";
             };
           };
-          hydra = { data, nodes, pkgs, modulesPath, ... }: {
+          hydra = { ... }: {
             deployment.targetHost = "hydra";
             imports = [ ./hosts/hydra ];
           };
@@ -58,6 +59,10 @@
     };
     dhack = {
       url = "github:NickCao/dhack";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";

@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }:
 let
-  clash-home = "/var/cache/clash";
+  clash-home = "/var/lib/clash";
   miiiw-art-z870-path = "input/by-path/uhid-0005:046D:B019.0003-event-kbd";
 in
 {
@@ -28,12 +28,17 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
+  # services.openssh = {
+  #   enable = true;
+  #   settings.PasswordAuthentication = true;
+  # };
+
   # region(collapsed) Clash Proxy
   home-manager.users.clash = {
     home.file = {
       "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
     };
-    home.stateVersion = "22.11";
+    home.stateVersion = "23.05";
   };
   systemd.services.clash = {
     enable = true;
@@ -47,12 +52,11 @@ in
     after = [ "network.target" "systemd-resolved.service" ];
     conflicts = [ "systemd-resolved.service" ];
     wantedBy = [ "multi-user.target" ];
-    serviceConfig =
-      {
-        AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
-        User = "clash";
-        Restart = "on-failure";
-      };
+    serviceConfig = {
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
+      User = "clash";
+      Restart = "on-failure";
+    };
   };
   systemd.services.clash-resolvconf = {
     enable = true;
@@ -118,7 +122,6 @@ in
         server clash_ssl_server 127.0.0.1:9001 check
     '';
   };
-  # TODO(high): fix wlan
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
     # TODO: clash.lan
@@ -141,13 +144,7 @@ in
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    # {{{
-    kernelPackages = pkgs.linuxPackages_latest;
-    extraModulePackages = with config.boot.kernelPackages; [
-      (callPackage "${inputs.dhack}/dhack.nix" { })
-    ];
-    kernelModules = [ "dhack" ];
-    # }}}
+
     extraModprobeConfig = ''
       options hid_apple fnmode=2
     '';
@@ -160,21 +157,14 @@ in
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
-    # TODO: built-in DHCP
-    wireless.iwd = {
-      enable = true;
-      package = pkgs.iwd-thu;
-      settings = {
-        Network = {
-          NameResolvingService = "resolvconf";
-        };
-      };
-    };
     resolvconf.useLocalResolver = false;
     networkmanager = {
       enable = true;
       dns = "dnsmasq";
-      wifi.backend = "iwd";
+      # wifi.backend = "iwd";
+    };
+    wireless.networks = {
+      "ChinaNet-sun".psk = "@ChinaNet-sun@";
     };
   };
   environment.etc."NetworkManager/dnsmasq.d/lan.conf".text = ''
@@ -185,14 +175,6 @@ in
     address=/local.lan/::1
     cache-size=10000
   '';
-
-  systemd.network.networks = {
-    "25-wireless" = {
-      # TODO: fix name
-      name = "wlan*";
-      DHCP = "yes";
-    };
-  };
 
   security.pam.u2f = {
     enable = true;
@@ -211,26 +193,26 @@ in
     };
     gvfs.enable = true;
     tumbler.enable = true;
-    udev.extraRules = ''
-      KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
-    '';
+    # udev.extraRules = ''
+    #   KERNEL=="event[0-9]*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="024f", SYMLINK+="${miiiw-art-z870-path}"
+    # '';
     printing.enable = true;
-    kmonad = {
-      enable = true;
-      keyboards = pkgs.lib.mapAttrs
-        (_: value: {
-          device = value;
-          defcfg = {
-            enable = true;
-            fallthrough = true;
-          };
-          config = builtins.readFile ./kmonad/internal.kbd;
-        })
-        {
-          internal = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-          miiiw-art-z870 = "/dev/${miiiw-art-z870-path}";
-        };
-    };
+    # kmonad = {
+    #   enable = true;
+    #   keyboards = pkgs.lib.mapAttrs
+    #     (_: value: {
+    #       device = value;
+    #       defcfg = {
+    #         enable = true;
+    #         fallthrough = true;
+    #       };
+    #       config = builtins.readFile ./kmonad/internal.kbd;
+    #     })
+    #     {
+    #       internal = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+    #       miiiw-art-z870 = "/dev/${miiiw-art-z870-path}";
+    #     };
+    # };
     blueman.enable = true;
     pipewire = {
       enable = true;
@@ -240,22 +222,30 @@ in
       jack.enable = true;
     };
     xserver = {
+      enable = true;
+      desktopManager = {
+        xterm.enable = false;
+        xfce = {
+          enable = true;
+          # noDesktop = true;
+          # enableXfwm = false;
+        };
+      };
+      displayManager.defaultSession = "xfce";
+      # windowManager.i3.enable = true;
       videoDrivers = [ "nvidia" "amd-gpu" ];
-      # displayManager = {
-      #   gdm.enable = true;
-      #   sessionPackages = [ pkgs.hyprland ];
-      # };
     };
   };
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "hyprland" ''
-          export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-          exec ${pkgs.hyprland}/bin/Hyprland
-        ''}";
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "hyprland" ''
+  #         export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+  #         exec ${pkgs.hyprland}/bin/Hyprland
+  #       ''}";
+  #   };
+  # };
+  services.teamviewer.enable = true;
   sound.enable = true;
 
   virtualisation.docker = {
@@ -264,11 +254,22 @@ in
     storageDriver = "btrfs";
   };
 
+  # services.create_ap = {
+  #   enable = true;
+  #   settings = {
+  #     INTERNET_IFACE = "wlp3s0";
+  #     WIFI_IFACE = "wlp3s0";
+  #     SSID = "nixos-sun";
+  #     #! FIXME: better password management (override config file location)
+  #     PASSPHRASE = "20140615";
+  #   };
+  # };
+
   users = {
     mutableUsers = false;
     users.sun = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" "wireshark" ];
+      extraGroups = [ "wheel" "docker" "wireshark" "networkmanager" ];
       passwordFile = config.sops.secrets.sun-password.path;
       shell = pkgs.fish;
     };
@@ -287,6 +288,10 @@ in
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
+      {
+        directory = "/etc/NetworkManager/system-connections";
+        mode = "0700";
+      }
       "/etc/nixos"
       "/var/log"
       "/var/lib"
@@ -301,6 +306,7 @@ in
         ".config"
         ".factorio"
         ".local"
+        ".vscode"
         "Documents"
         "Downloads"
         "Music"
@@ -312,15 +318,7 @@ in
       ];
     };
     users.clash = {
-      directories = [
-        ".cache"
-        "Certificates"
-        "ProxyProviders"
-        "RuleProviders"
-      ];
-      files = [
-        "cache.db"
-      ];
+      directories = [ "." ];
       home = clash-home;
     };
   };
@@ -379,14 +377,13 @@ in
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-hyprland
       # see https://github.com/flatpak/xdg-desktop-portal-gtk/issues/355
       xdg-desktop-portal-gtk
     ];
   };
 
-  fonts.enableDefaultFonts =
-    false;
+  fonts.enableDefaultFonts = false;
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans

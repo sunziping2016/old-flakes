@@ -2,7 +2,4 @@
 result
 
 # secrets
-hosts/local/secrets/clash.yaml
-
-# BLOB
-*.tar.gz
+.decrypted~*
