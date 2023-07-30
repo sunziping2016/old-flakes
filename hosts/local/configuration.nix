@@ -21,9 +21,6 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     users.sun = import ./home.nix;
-    sharedModules = [
-      inputs.hyprland.homeManagerModules.default
-    ];
     extraSpecialArgs = { inherit inputs; };
   };
 
