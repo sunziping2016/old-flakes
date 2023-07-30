@@ -11,26 +11,3 @@ fetch.url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-
 src.git = "https://github.com/Dreamacro/clash-dashboard.git"
 src.branch = "gh-pages"
 fetch.git = "https://github.com/Dreamacro/clash-dashboard.git"
-
-[kmonad-bin]
-src.webpage = "https://api.github.com/repos/kmonad/kmonad/releases"
-src.regex = "kmonad-([-.a-z0-9]+)-linux"
-fetch.url = "https://github.com/kmonad/kmonad/releases/download/$ver/kmonad-$ver-linux"
-
-[vscode-extension-ms-vscode-cpptools]
-src.github = "microsoft/vscode-cpptools"
-fetch.url = "https://github.com/microsoft/vscode-cpptools/releases/download/$ver/cpptools-linux.vsix"
-
-[vscode-extension-github-copilot]
-src.vsmarketplace = "github.copilot"
-fetch.vsmarketplace = "github.copilot"
-
-[sweet]
-src.git = "https://github.com/EliverLara/Sweet.git"
-src.branch = "nova"
-fetch.git = "https://github.com/EliverLara/Sweet.git"
-
-# [vscode-insider]
-# src.webpage = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64"
-# src.regex = "code-insider-x64-([0-9]+)\\.tar\\.gz"
-# fetch.url = "https://code.visualstudio.com/sha/download?build=insider&os=linux-x64"
