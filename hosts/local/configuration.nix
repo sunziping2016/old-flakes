@@ -61,7 +61,7 @@ in
         online=0
         while true; do
           set +e
-          ip=$(${pkgs.q}/bin/q -f json www.gstatic.com @127.0.0.2 A | ${pkgs.jq}/bin/jq -r .Answers[0].A)
+          ip=$(${pkgs.q}/bin/q --format=json www.gstatic.com @127.0.0.2 A | ${pkgs.jq}/bin/jq -r .Answers[0].A)
           set -e
           if [ $? -eq 0 ] && ${pkgs.curl}/bin/curl -s -m 3 --resolve www.gstatic.com:80:$ip http://www.gstatic.com/generate_204; then
             new_online=1
@@ -99,6 +99,7 @@ in
   };
 
   security.sudo = {
+     
     extraConfig = ''
       Defaults lecture="never"
     '';

@@ -73,6 +73,11 @@
       wireshark
       dfeet
       networkmanagerapplet
+      pavucontrol
+      # developing
+      nil
+      nixpkgs-fmt
+      haskell-language-server
     ];
   programs.fish = {
     enable = true;
