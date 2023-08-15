@@ -348,7 +348,13 @@ in
   };
   console.useXkbConfig = true;
 
-  systemd.network.wait-online.anyInterface = true;
+  systemd.network.wait-online = {
+    anyInterface = true;
+    extraArgs = [
+      "--interface=enp2s0"
+      "--interface=wlp3s0"
+    ];
+  };
 
   system.stateVersion = "23.05";
 }
