@@ -5,7 +5,7 @@ in
 {
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/var/lib/sops.key";
+    # age.keyFile = "/var/lib/sops.key";
     secrets = {
       sun-password.neededForUsers = true;
       u2f = { };
@@ -38,8 +38,7 @@ in
       ${pkgs.yq-go}/bin/yq ea -eM "select(fileIndex==0)+select(fileIndex==1)" ${./clash.yaml} ${config.sops.secrets."clash-config.yaml".path} > $temp_file
       exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f $temp_file
     '';
-    after = [ "network.target" "systemd-resolved.service" ];
-    conflicts = [ "systemd-resolved.service" ];
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
@@ -99,7 +98,7 @@ in
   };
 
   security.sudo = {
-     
+
     extraConfig = ''
       Defaults lecture="never"
     '';
@@ -216,7 +215,6 @@ in
         directory = "/etc/NetworkManager/system-connections";
         mode = "0700";
       }
-      "/etc/nixos"
       "/var/log"
       "/var/lib"
     ];
@@ -293,6 +291,11 @@ in
       thunar-volman
     ];
   };
+  environment.systemPackages = with pkgs; [
+    # xfce
+    xfce.xfce4-pulseaudio-plugin
+    xfce.xfce4-whiskermenu-plugin
+  ];
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -329,7 +332,23 @@ in
   };
 
   services.xserver.xkbOptions = "ctrl:nocaps";
+  services.openssh = {
+    enable = true;
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+      {
+        path = "/persist/etc/ssh/ssh_host_rsa_key";
+        type = "rsa";
+        bits = 4096;
+      }
+    ];
+  };
   console.useXkbConfig = true;
+
+  systemd.network.wait-online.anyInterface = true;
 
   system.stateVersion = "23.05";
 }

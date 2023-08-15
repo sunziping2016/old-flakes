@@ -21,7 +21,7 @@
           packages = this.packages system pkgs;
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ nvfetcher nix-prefetch-git sops colmena ];
+            nativeBuildInputs = [ nvfetcher nix-prefetch-git sops colmena just fzf ];
           };
           formatter = pkgs.nixpkgs-fmt;
         };

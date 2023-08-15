@@ -21,9 +21,16 @@
     executable = true;
     text = ''
       export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-      ${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
     '';
   };
+  xdg.configFile."autostart/xcape.desktop".text = ''
+    [Desktop Entry]
+    Name=Xcape
+    Exec=${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
+    Terminal=false
+    Type=Application
+    StartupNotify=true
+  '';
 
   home.packages = with pkgs;
     [
