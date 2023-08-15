@@ -119,7 +119,6 @@ in
 
   networking = {
     hostName = "local";
-    useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
     resolvconf.useLocalResolver = false;
