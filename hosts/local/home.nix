@@ -150,6 +150,27 @@
       "3770D6CF9F129A7A699AECA8248F3FE0BC366A21"
     ];
   };
+  systemd.user.services.resolvconf-notify = {
+    Unit = {
+      Description = "Notify resolvconf changes";
+    };
+    Service = {
+      ExecStart = pkgs.writeShellScript "resolvconf-notify.sh" ''
+        while true; do
+          nameserver=$(${pkgs.coreutils}/bin/cat /etc/resolv.conf | ${pkgs.gnused}/bin/sed -n 's/nameserver \(\S\+\)/\1/p')
+          if [ "$nameserver" = "127.0.0.2" ]; then
+            ${pkgs.libnotify}/bin/notify-send -i network-transmit-receive "Clash" "connected"
+          else
+            ${pkgs.libnotify}/bin/notify-send -i network-offline "Clash" "disconnected"
+          fi
+          ${pkgs.inotify-tools}/bin/inotifywait -e close_write /etc/resolv.conf || break
+        done
+      '';
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
   programs.ssh = {
     enable = true;
     compression = true;

@@ -70,13 +70,16 @@ in
           if [ $online -eq 0 ] && [ $new_online -eq 1 ]; then
             echo "Online!"
             ${pkgs.openresolv}/bin/resolvconf -m 10 -x -a Clash < ${clash-resolv}
-            sleep 60
           elif [ $online -eq 1 ] && [ $new_online -eq 0 ]; then
             echo "Offline!"
             ${pkgs.openresolv}/bin/resolvconf -fd Clash
-            sleep 3
           fi
           online=$new_online
+          if [ $online -eq 0 ]; then
+            sleep 5
+          else
+            sleep 60
+          fi
         done
       '';
     bindsTo = [ "clash.service" ];
