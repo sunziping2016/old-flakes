@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   systemd.user = {
     sessionVariables = {
@@ -23,14 +23,26 @@
       export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
     '';
   };
-  xdg.configFile."autostart/xcape.desktop".text = ''
-    [Desktop Entry]
-    Name=Xcape
-    Exec=${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
-    Terminal=false
-    Type=Application
-    StartupNotify=true
-  '';
+  xdg.configFile = {
+    "autostart/xcape.desktop".text = ''
+      [Desktop Entry]
+      Name=Xcape
+      Exec=${pkgs.xcape}/bin/xcape -e 'Control_L=Escape'
+      Terminal=false
+      Type=Application
+      StartupNotify=false
+    '';
+    "autostart/seafile.desktop".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.seafile-client}/share/applications/seafile.desktop";
+    "autostart/telegram.desktop".text = ''
+      [Desktop Entry]
+      Name=Telegram
+      Comment=Official desktop version of Telegram messaging app
+      Exec=telegram-desktop -startintray
+      Icon=telegram
+      StartupNotify=false
+      Type=Application
+    '';
+  };
 
   home.packages = with pkgs;
     [
@@ -141,6 +153,10 @@
       diff.colorMoved = "default";
       # endregion
     };
+  };
+  programs.rtorrent = {
+    enable = true;
+    extraConfig = builtins.readFile ./rtorrent.rc;
   };
   services.gpg-agent = {
     enable = true;
