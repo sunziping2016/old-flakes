@@ -3,31 +3,31 @@
 {
   clash-dashboard = {
     pname = "clash-dashboard";
-    version = "1d2eaf0b1da975294461195c90a8279badad3d3c";
+    version = "56503093e473410bf135abcd556cb8f081b7eefa";
     src = fetchgit {
       url = "https://github.com/Dreamacro/clash-dashboard.git";
-      rev = "1d2eaf0b1da975294461195c90a8279badad3d3c";
+      rev = "56503093e473410bf135abcd556cb8f081b7eefa";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-AGcrdlfJ4Ky7+xeZsES2kUpJyB3ZTYRSh7sw3HsQcl4=";
+      sha256 = "sha256-a4+1On6r+XnSvihEQnxY3YlOMSH2tCprp526ZnYzluo=";
     };
-    date = "2023-06-30";
+    date = "2023-08-21";
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.07.22";
+    version = "2023.08.17";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.07.22.gz";
-      sha256 = "sha256-gYpwRCu3DRyZno8QFP2/NMLNqCv2TC1/oxe/L/ocHvs=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.08.17.gz";
+      sha256 = "sha256-kjgPBT8IPjeUwWgVg74BOlexYCktHZ4QVuf6HC2Uh0c=";
     };
   };
   maxmind-geoip = {
     pname = "maxmind-geoip";
-    version = "20230712";
+    version = "20230812";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230712/Country.mmdb";
-      sha256 = "sha256-QXxY/WruYY09LL+OEKhd/EUb+GOI49KFnG75mbwMWoU=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230812/Country.mmdb";
+      sha256 = "sha256-yO8zSQjNYGxaSXcOhFOIE4HsiMnCm3ZVYfVZg5xO96s=";
     };
   };
 }

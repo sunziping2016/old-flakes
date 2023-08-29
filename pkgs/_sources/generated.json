@@ -1,7 +1,7 @@
 {
     "clash-dashboard": {
         "cargoLocks": null,
-        "date": "2023-06-30",
+        "date": "2023-08-21",
         "extract": null,
         "name": "clash-dashboard",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1d2eaf0b1da975294461195c90a8279badad3d3c",
-            "sha256": "sha256-AGcrdlfJ4Ky7+xeZsES2kUpJyB3ZTYRSh7sw3HsQcl4=",
+            "rev": "56503093e473410bf135abcd556cb8f081b7eefa",
+            "sha256": "sha256-a4+1On6r+XnSvihEQnxY3YlOMSH2tCprp526ZnYzluo=",
             "type": "git",
             "url": "https://github.com/Dreamacro/clash-dashboard.git"
         },
-        "version": "1d2eaf0b1da975294461195c90a8279badad3d3c"
+        "version": "56503093e473410bf135abcd556cb8f081b7eefa"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gYpwRCu3DRyZno8QFP2/NMLNqCv2TC1/oxe/L/ocHvs=",
+            "sha256": "sha256-kjgPBT8IPjeUwWgVg74BOlexYCktHZ4QVuf6HC2Uh0c=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.07.22.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.08.17.gz"
         },
-        "version": "2023.07.22"
+        "version": "2023.08.17"
     },
     "maxmind-geoip": {
         "cargoLocks": null,
@@ -42,10 +42,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QXxY/WruYY09LL+OEKhd/EUb+GOI49KFnG75mbwMWoU=",
+            "sha256": "sha256-yO8zSQjNYGxaSXcOhFOIE4HsiMnCm3ZVYfVZg5xO96s=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230712/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230812/Country.mmdb"
         },
-        "version": "20230712"
+        "version": "20230812"
     }
 }
