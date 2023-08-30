@@ -181,7 +181,7 @@ in
     };
   };
 
-  services.teamviewer.enable = true;
+  # services.teamviewer.enable = true;
   sound.enable = true;
 
   virtualisation.docker = {
@@ -350,6 +350,8 @@ in
     ];
   };
   console.useXkbConfig = true;
+
+  programs.bcc.enable = true;
 
   systemd.network.wait-online = {
     anyInterface = true;

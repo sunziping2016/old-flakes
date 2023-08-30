@@ -64,7 +64,7 @@
       delta
       procs
       docker-compose
-      azure-cli
+      # azure-cli
       mtr
       htop
       # Others
