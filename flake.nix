@@ -13,6 +13,7 @@
             inherit system;
             overlays = [
               inputs.colmena.overlay
+              inputs.nvfetcher.overlays.default
               self.overlays.default
             ];
           };
@@ -68,8 +69,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence.url = "github:nix-community/impermanence";
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

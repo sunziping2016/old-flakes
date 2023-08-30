@@ -20,8 +20,8 @@ nixpkgs.lib.nixosSystem {
       };
       nixpkgs.config.allowUnfree = true;
       nixpkgs.overlays = [
+        inputs.nvfetcher.overlays.default
         self.overlays.default
-        inputs.nix-vscode-extensions.overlays.default
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;

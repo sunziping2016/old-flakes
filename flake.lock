@@ -115,11 +115,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1681202837,
-        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
+        "lastModified": 1689068808,
+        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
+        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
         "type": "github"
       },
       "original": {
@@ -160,28 +160,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
-        "type": "github"
-      }
-    },
-    "nix-vscode-extensions": {
-      "inputs": {
-        "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1693358717,
-        "narHash": "sha256-OYGe2Yay1QoodZZmvPYBFGAoTrRfyKLzFs2vON4gRek=",
-        "owner": "nix-community",
-        "repo": "nix-vscode-extensions",
-        "rev": "50c4bce16b93e7ca8565d51fafabc05e9f0515da",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nix-vscode-extensions",
         "type": "github"
       }
     },
@@ -251,6 +229,28 @@
         "type": "github"
       }
     },
+    "nvfetcher": {
+      "inputs": {
+        "flake-compat": "flake-compat_2",
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1692372415,
+        "narHash": "sha256-QVrvyRf2LKdvnElp50sORKWmyP8KBVDKL7mTXvSNDqU=",
+        "owner": "berberman",
+        "repo": "nvfetcher",
+        "rev": "447973723f6e284934d3cf5f81ca4cfbf4462aef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "berberman",
+        "repo": "nvfetcher",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "colmena": "colmena",
@@ -258,8 +258,8 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
+        "nvfetcher": "nvfetcher",
         "sops-nix": "sops-nix"
       }
     },
