@@ -220,8 +220,8 @@ in
     groups.clash = { };
   };
   programs.fish.enable = true;
-  programs.nix-index.enable = true;
   programs.command-not-found.enable = false;
+  programs.nix-index-database.comma.enable = true;
 
   environment.persistence."/persist" = {
     hideMounts = true;
