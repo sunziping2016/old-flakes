@@ -184,17 +184,30 @@ in
   # services.teamviewer.enable = true;
   sound.enable = true;
 
-  virtualisation.docker = {
-    enable = true;
-    enableNvidia = true;
-    storageDriver = "btrfs";
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      enableNvidia = true;
+      autoPrune.enable = true;
+      defaultNetwork.settings = { dns_enabled = true; };
+    };
+    containers = {
+      storage.settings = {
+        storage = {
+          driver = "btrfs";
+          graphroot = "/var/lib/containers/storage";
+          runroot = "/run/containers/storage";
+        };
+      };
+    };
   };
 
   users = {
     mutableUsers = false;
     users.sun = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" "wireshark" "networkmanager" ];
+      extraGroups = [ "wheel" "podman" "wireshark" "networkmanager" ];
       passwordFile = config.sops.secrets.sun-password.path;
       shell = pkgs.fish;
     };
