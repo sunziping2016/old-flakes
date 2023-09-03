@@ -21,9 +21,24 @@
         {
           packages = this.packages system pkgs;
           legacyPackages = pkgs;
-          devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ nvfetcher nix-prefetch-git sops colmena just fzf ];
-          };
+          devShells.default = with pkgs;
+            let
+              my-python = python3.withPackages (p: with p; [
+                autopep8
+                pyyaml
+              ]);
+            in
+            mkShell {
+              nativeBuildInputs = [
+                nvfetcher
+                nix-prefetch-git
+                sops
+                colmena
+                just
+                fzf
+                my-python
+              ];
+            };
           formatter = pkgs.nixpkgs-fmt;
         };
       flake = {

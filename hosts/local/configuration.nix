@@ -9,6 +9,11 @@ in
     secrets = {
       sun-password.neededForUsers = true;
       u2f = { };
+      proxy-providers = {
+        name = "proxy-providers.yaml";
+        owner = "clash";
+        restartUnits = [ "clash.service" ];
+      };
       "clash-config.yaml" = {
         name = "clash-config.yaml";
         owner = "clash";
@@ -34,9 +39,10 @@ in
     enable = true;
     description = "Clash networking service";
     script = ''
-      temp_file=$(mktemp)
-      ${pkgs.yq-go}/bin/yq ea -eM "select(fileIndex==0)+select(fileIndex==1)" ${./clash.yaml} ${config.sops.secrets."clash-config.yaml".path} > $temp_file
-      exec ${pkgs.clash-premium}/bin/clash-premium -d ${clash-home} -f $temp_file
+      temp_file=/tmp/clash.yaml
+      export PROXY_PROVIDERS=$(cat ${config.sops.secrets.proxy-providers.path})
+      ${pkgs.yq-go}/bin/yq eval -eM 'eval(.$eval)' ${./clash.yaml} > $temp_file
+      exec ${pkgs.clash-meta}/bin/clash-meta -d ${clash-home} -f $temp_file
     '';
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
@@ -82,8 +88,7 @@ in
           fi
         done
       '';
-    bindsTo = [ "clash.service" ];
-    after = [ "clash.service" ];
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStopPost = "${pkgs.openresolv}/bin/resolvconf -fd Clash";
