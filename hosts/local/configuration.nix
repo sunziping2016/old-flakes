@@ -29,12 +29,6 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
-  home-manager.users.clash = {
-    home.file = {
-      "Country.mmdb".source = "${pkgs.maxmind-geoip}/share/Country.mmdb";
-    };
-    home.stateVersion = "23.05";
-  };
   systemd.services.clash = {
     enable = true;
     description = "Clash networking service";
@@ -97,7 +91,7 @@ in
 
   systemd.services.clash-dashboard = {
     description = "Clash dashboard";
-    script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.clash-dashboard}/share/clash-dashboard";
+    script = "exec ${pkgs.miniserve}/bin/miniserve --spa --index index.html -i 127.0.0.1 -p 9001 ${pkgs.yacd-meta}/share/yacd-meta";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {

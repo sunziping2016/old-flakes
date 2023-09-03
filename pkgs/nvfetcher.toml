@@ -1,13 +1,4 @@
-[maxmind-geoip]
-src.github = "Dreamacro/maxmind-geoip"
-fetch.url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/$ver/Country.mmdb"
-
-[clash-premium-x86_64-linux]
-src.webpage = "https://api.github.com/repos/Dreamacro/clash/releases/tags/premium"
-src.regex = "clash-linux-amd64-([-.a-z0-9]+).gz"
-fetch.url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-$ver.gz"
-
-[clash-dashboard]
-src.git = "https://github.com/Dreamacro/clash-dashboard.git"
+[yacd-meta]
+src.git = "https://github.com/MetaCubeX/Yacd-meta.git"
 src.branch = "gh-pages"
-fetch.git = "https://github.com/Dreamacro/clash-dashboard.git"
+fetch.git = "https://github.com/MetaCubeX/Yacd-meta.git"

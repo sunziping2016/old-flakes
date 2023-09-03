@@ -1,21 +1,21 @@
 { sources, stdenvNoCC, lib }:
 let
-  source = sources.clash-dashboard;
+  source = sources.yacd-meta;
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = source.pname;
   version = source.version;
 
   src = source.src;
 
   installPhase = ''
-    mkdir -p $out/share/clash-dashboard
-    cp -r . $out/share/clash-dashboard
+    mkdir -p $out/share/yacd-meta
+    cp -r . $out/share/yacd-meta
   '';
 
   meta = with lib; {
     description = "Web port of clash";
-    homepage = "https://github.com/Dreamacro/clash-dashboard";
+    homepage = "Yet Another Clash Dashboard";
     license = licenses.mit;
     platforms = platforms.all;
   };
