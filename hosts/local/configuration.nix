@@ -379,4 +379,44 @@ in
   };
 
   system.stateVersion = "23.05";
+
+  # sudo systemd-nspawn -b -D ~/.local/share/systemd-nspawn/archlinux
+  # --bind-ro=/tmp/.X11-unix --bind=$HOME --bind=/dev/dri 
+  # --bind=/dev/shm --bind=/dev/nvidia0
+  # --bind=/dev/nvidiactl --bind=/dev/nvidia-modeset --bind /dev/snd
+  # --bind $XDG_RUNTIME_DIR
+  systemd.nspawn.archlinux = {
+    execConfig = {
+      Hostname = "archlinux";
+    };
+    filesConfig = {
+      BindReadOnly = [
+        "/tmp/.X11-unix"
+      ];
+      Bind = [
+        "/dev/dri"
+        "/dev/shm"
+        "/dev/nvidia0"
+        "/dev/nvidiactl"
+        "/dev/nvidia-modeset"
+        "/dev/snd"
+      ];
+    };
+    networkConfig = {
+      Private = false;
+    };
+  };
+  systemd.services."systemd-nspawn@archlinux" = {
+    overrideStrategy = "asDropin";
+    serviceConfig = {
+      DeviceAllow = [
+        "/dev/dri rw"
+        "/dev/shm rw"
+        "/dev/nvidia0 rw"
+        "/dev/nvidiactl rw"
+        "/dev/nvidia-modeset rw"
+        "/dev/snd rw"
+      ];
+    };
+  };
 }
