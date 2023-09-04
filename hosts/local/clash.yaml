@@ -25,6 +25,8 @@ in: &in
   type: select
   proxies:
     - Proxy
+    - SZP
+    - Manual
     - DIRECT
     - REJECT
     - PASS
@@ -32,6 +34,8 @@ in: &in
 out: &out
   type: url-test
   use: []
+  interval: 300
+  tolerance: 10
 
 p: &p
   type: http
@@ -93,14 +97,7 @@ dns:
   default-nameserver:
     - 127.0.0.1:53
   nameserver:
-    - "tls://8.8.4.4#dns"
-    - "tls://1.0.0.1#dns"
-  proxy-server-nameserver:
-    - https://doh.pub/dns-query
-  nameserver-policy:
-    "geosite:cn,private":
-      - https://doh.pub/dns-query
-      - https://dns.alidns.com/dns-query
+    - 127.0.0.1:53
 
 proxy-groups:
   # incoming
@@ -124,15 +121,15 @@ proxy-groups:
     <<: *in
     default: SZP
 
-  - name: dns
-    <<: *in
-    default: Proxy
-
   - name: China
     <<: *in
-    default: Proxy
+    default: DIRECT
 
   # outgoing
+  - name: Manual
+    <<: *out
+    type: select
+
   - name: Proxy
     <<: *out
 
