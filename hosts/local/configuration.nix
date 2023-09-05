@@ -29,23 +29,28 @@ in
     extraSpecialArgs = { inherit inputs; };
   };
 
-  systemd.services.clash = {
-    enable = true;
-    description = "Clash networking service";
-    script = ''
-      temp_file=/tmp/clash.yaml
-      export PROXY_PROVIDERS=$(cat ${config.sops.secrets.proxy-providers.path})
-      ${pkgs.yq-go}/bin/yq eval -eM 'eval(.$eval)' ${./clash.yaml} > $temp_file
-      exec ${pkgs.clash-meta}/bin/clash-meta -d ${clash-home} -f $temp_file
-    '';
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
-      User = "clash";
-      Restart = "on-failure";
+  systemd.services.clash =
+    let
+      clash-config = "/tmp/clash.yaml";
+    in
+    {
+      enable = true;
+      description = "Clash networking service";
+      script = ''
+        umask 0077
+        export PROXY_PROVIDERS=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.proxy-providers.path})
+        ${pkgs.yq-go}/bin/yq eval -eM 'eval(.$eval)' ${./clash.yaml} > ${clash-config}
+        exec ${pkgs.clash-meta}/bin/clash-meta -d ${clash-home} -f ${clash-config}
+      '';
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN";
+        User = "clash";
+        Restart = "on-failure";
+        ExecStopPost = "${pkgs.coreutils}/bin/rm -f ${clash-config}";
+      };
     };
-  };
   systemd.services.clash-resolvconf = {
     enable = true;
     description = "Clash watchdog";
