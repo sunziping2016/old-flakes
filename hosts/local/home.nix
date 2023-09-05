@@ -187,6 +187,30 @@
       WantedBy = [ "graphical-session.target" ];
     };
   };
+
+  systemd.user.services.container-env-publish = {
+    Unit = {
+      Description = "Publish container environment";
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "container-env-publish.sh" ''
+        umask 077
+        user_dir=/tmp/.container-shared/$(${pkgs.coreutils}/bin/id -u)
+        ${pkgs.coreutils}/bin/mkdir -p $user_dir
+        ${pkgs.coreutils}/bin/rm -f $user_dir/env
+        echo DISPLAY=$DISPLAY >> $user_dir/env
+        XAUTH=$user_dir/xauth
+        touch $XAUTH
+        ${pkgs.xorg.xauth}/bin/xauth nextract - $DISPLAY | ${pkgs.gnused}/bin/sed -e 's/^..../ffff/' | ${pkgs.xorg.xauth}/bin/xauth -f $XAUTH nmerge -
+        echo XAUTHORITY=$XAUTH >> $user_dir/env
+      '';
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   programs.ssh = {
     enable = true;
     compression = true;

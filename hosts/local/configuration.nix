@@ -37,7 +37,7 @@ in
       enable = true;
       description = "Clash networking service";
       script = ''
-        umask 0077
+        umask 077
         export PROXY_PROVIDERS=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.proxy-providers.path})
         ${pkgs.yq-go}/bin/yq eval -eM 'eval(.$eval)' ${./clash.yaml} > ${clash-config}
         exec ${pkgs.clash-meta}/bin/clash-meta -d ${clash-home} -f ${clash-config}
@@ -236,6 +236,7 @@ in
       }
       "/var/log"
       "/var/lib"
+      "/tmp/.container-shared"
     ];
     files = [
       "/etc/machine-id"
@@ -392,6 +393,7 @@ in
     filesConfig = {
       BindReadOnly = [
         "/tmp/.X11-unix"
+        "/tmp/.container-shared:/tmp/.container-shared:idmap"
       ];
       Bind = [
         "/dev/dri"
