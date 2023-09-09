@@ -393,6 +393,8 @@ in
     filesConfig = {
       BindReadOnly = [
         "/tmp/.X11-unix"
+        # mkdir -p /tmp/.container-shared
+        # chmod g+s /tmp/.container-shared
         "/tmp/.container-shared:/tmp/.container-shared:idmap"
       ];
       Bind = [
@@ -401,7 +403,15 @@ in
         "/dev/nvidia0"
         "/dev/nvidiactl"
         "/dev/nvidia-modeset"
-        "/dev/snd"
+        "/dev/nvidia-uvm"
+        "/dev/nvidia-uvm-tools"
+        "/home/sun/Documents"
+        "/home/sun/Downloads"
+        "/home/sun/Music"
+        "/home/sun/Pictures"
+        "/home/sun/Videos"
+        "/home/sun/Projects"
+        "/home/sun/Torrents"
       ];
     };
     networkConfig = {
@@ -409,6 +419,7 @@ in
     };
   };
   systemd.services."systemd-nspawn@archlinux" = {
+    enable = true;
     overrideStrategy = "asDropin";
     serviceConfig = {
       DeviceAllow = [
@@ -417,8 +428,10 @@ in
         "/dev/nvidia0 rw"
         "/dev/nvidiactl rw"
         "/dev/nvidia-modeset rw"
-        "/dev/snd rw"
+        "/dev/nvidia-uvm rw"
+        "/dev/nvidia-uvm-tools rw"
       ];
     };
+    wantedBy = [ "multi-user.target" ];
   };
 }

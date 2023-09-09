@@ -220,6 +220,10 @@
         user = "root";
         hostname = "sh1.szp15.com";
       };
+      arch = {
+        hostname = "localhost";
+        port = 2022;
+      };
     };
     extraConfig = ''
       CheckHostIP no
