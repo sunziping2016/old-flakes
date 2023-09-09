@@ -224,7 +224,14 @@
         hostname = "localhost";
         port = 2022;
       };
+      suibe = {
+        proxyJump = "szp15.com";
+        hostname = "::1";
+        port = 47610;
+        user = "weiting";
+      };
     };
+    forwardAgent = true;
     extraConfig = ''
       CheckHostIP no
     '';
