@@ -406,13 +406,13 @@ in
         "/dev/nvidia-modeset"
         "/dev/nvidia-uvm"
         "/dev/nvidia-uvm-tools"
-        "/home/sun/Documents"
-        "/home/sun/Downloads"
-        "/home/sun/Music"
-        "/home/sun/Pictures"
-        "/home/sun/Videos"
-        "/home/sun/Projects"
-        "/home/sun/Torrents"
+        "/home/sun/Documents:/home/sun/Documents:idmap"
+        "/home/sun/Downloads:/home/sun/Downloads:idmap"
+        "/home/sun/Music:/home/sun/Music:idmap"
+        "/home/sun/Pictures:/home/sun/Pictures:idmap"
+        "/home/sun/Videos:/home/sun/Videos:idmap"
+        "/home/sun/Projects:/home/sun/Projects:idmap"
+        "/home/sun/Torrents:/home/sun/Torrents:idmap"
       ];
     };
     networkConfig = {
