@@ -48,10 +48,11 @@
     [
       # Shell
       ## CLI utilities
+      killall
       fd
       ripgrep
       sd
-      exa
+      eza
       bat
       zoxide
       miniserve
@@ -63,7 +64,6 @@
       q
       delta
       procs
-      docker-compose
       # azure-cli
       mtr
       htop
